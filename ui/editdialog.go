@@ -6,6 +6,7 @@
 package ui
 
 import (
+	"net"
 	"strings"
 
 	"github.com/lxn/walk"
@@ -180,103 +181,107 @@ func newEditDialog(owner walk.Form, tunnel *manager.Tunnel) (*EditDialog, error)
 	return dlg, nil
 }
 
+func equalIPCidrs(a, b conf.IPCidr) bool {
+	return a.IP.Equal(b.IP) && (a.Cidr == b.Cidr)
+}
+
 func (dlg *EditDialog) onBlockUntunneledTrafficCBCheckedChanged() {
-	/*if dlg.blockUntunneledTraficCheckGuard {
-			return
-		}
-		var (
-			v400    = netip.PrefixFrom(netip.IPv4Unspecified(), 0)
-			v600000 = netip.PrefixFrom(netip.IPv6Unspecified(), 0)
-			v401    = netip.PrefixFrom(netip.AddrFrom4([4]byte{}), 1)
-			v600001 = netip.PrefixFrom(netip.AddrFrom16([16]byte{}), 1)
-			v41281  = netip.PrefixFrom(netip.AddrFrom4([4]byte{0x80}), 1)
-			v680001 = netip.PrefixFrom(netip.AddrFrom16([16]byte{0x80}), 1)
-		)
-
-		block := dlg.blockUntunneledTrafficCB.Checked()
-		cfg, err := conf.FromWgQuick(dlg.syntaxEdit.Text(), "temporary")
-		var newAllowedIPs []netip.Prefix
-
-		if err != nil {
-			goto err
-		}
-		if len(cfg.Peers) != 1 {
-			goto err
-		}
-
-		newAllowedIPs = make([]netip.Prefix, 0, len(cfg.Peers[0].AllowedIPs))
-		if block {
-			var (
-				foundV401    bool
-				foundV41281  bool
-				foundV600001 bool
-				foundV680001 bool
-			)
-			for _, allowedip := range cfg.Peers[0].AllowedIPs {
-				if allowedip == v600001 {
-					foundV600001 = true
-				} else if allowedip == v680001 {
-					foundV680001 = true
-				} else if allowedip == v401 {
-					foundV401 = true
-				} else if allowedip == v41281 {
-					foundV41281 = true
-				} else {
-					newAllowedIPs = append(newAllowedIPs, allowedip)
-				}
-			}
-			if !((foundV401 && foundV41281) || (foundV600001 && foundV680001)) {
-				goto err
-			}
-			if foundV401 && foundV41281 {
-				newAllowedIPs = append(newAllowedIPs, v400)
-			} else if foundV401 {
-				newAllowedIPs = append(newAllowedIPs, v401)
-			} else if foundV41281 {
-				newAllowedIPs = append(newAllowedIPs, v41281)
-			}
-			if foundV600001 && foundV680001 {
-				newAllowedIPs = append(newAllowedIPs, v600000)
-			} else if foundV600001 {
-				newAllowedIPs = append(newAllowedIPs, v600001)
-			} else if foundV680001 {
-				newAllowedIPs = append(newAllowedIPs, v680001)
-			}
-			cfg.Peers[0].AllowedIPs = newAllowedIPs
-		} else {
-			var (
-				foundV400    bool
-				foundV600000 bool
-			)
-			for _, allowedip := range cfg.Peers[0].AllowedIPs {
-				if allowedip == v600000 {
-					foundV600000 = true
-				} else if allowedip == v400 {
-					foundV400 = true
-				} else {
-					newAllowedIPs = append(newAllowedIPs, allowedip)
-				}
-			}
-			if !(foundV400 || foundV600000) {
-				goto err
-			}
-			if foundV400 {
-				newAllowedIPs = append(newAllowedIPs, v401)
-				newAllowedIPs = append(newAllowedIPs, v41281)
-			}
-			if foundV600000 {
-				newAllowedIPs = append(newAllowedIPs, v600001)
-				newAllowedIPs = append(newAllowedIPs, v680001)
-			}
-			cfg.Peers[0].AllowedIPs = newAllowedIPs
-		}
-		dlg.syntaxEdit.SetText(cfg.ToWgQuick())
+	if dlg.blockUntunneledTraficCheckGuard {
 		return
+	}
+	var (
+		v400    = conf.IPCidr{IP: net.IPv4zero, Cidr: 0}                                              //v400    = netip.PrefixFrom(netip.IPv4Unspecified(), 0)
+		v600000 = conf.IPCidr{IP: net.IPv6zero, Cidr: 0}                                              //v600000 = netip.PrefixFrom(netip.IPv6Unspecified(), 0)
+		v401    = conf.IPCidr{IP: net.IPv4zero, Cidr: 1}                                              //v401    = netip.PrefixFrom(netip.AddrFrom4([4]byte{}), 1)
+		v600001 = conf.IPCidr{IP: net.IPv6zero, Cidr: 1}                                              //v600001 = netip.PrefixFrom(netip.AddrFrom16([16]byte{}), 1)
+		v41281  = conf.IPCidr{IP: net.IPv4(0x80, 0, 0, 0), Cidr: 1}                                   //v41281  = netip.PrefixFrom(netip.AddrFrom4([4]byte{0x80}), 1)
+		v680001 = conf.IPCidr{IP: net.IP{0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, Cidr: 1} //v680001 = netip.PrefixFrom(netip.AddrFrom16([16]byte{0x80}), 1)
+	)
 
-	err:
-		text := dlg.syntaxEdit.Text()
-		dlg.syntaxEdit.SetText("")
-		dlg.syntaxEdit.SetText(text)*/
+	block := dlg.blockUntunneledTrafficCB.Checked()
+	cfg, err := conf.FromWgQuick(dlg.syntaxEdit.Text(), "temporary")
+	var newAllowedIPs []conf.IPCidr
+
+	if err != nil {
+		goto err
+	}
+	if len(cfg.Peers) != 1 {
+		goto err
+	}
+
+	newAllowedIPs = make([]conf.IPCidr, 0, len(cfg.Peers[0].AllowedIPs))
+	if block {
+		var (
+			foundV401    bool
+			foundV41281  bool
+			foundV600001 bool
+			foundV680001 bool
+		)
+		for _, allowedip := range cfg.Peers[0].AllowedIPs {
+			if equalIPCidrs(allowedip, v600001) {
+				foundV600001 = true
+			} else if equalIPCidrs(allowedip, v680001) {
+				foundV680001 = true
+			} else if equalIPCidrs(allowedip, v401) {
+				foundV401 = true
+			} else if equalIPCidrs(allowedip, v41281) {
+				foundV41281 = true
+			} else {
+				newAllowedIPs = append(newAllowedIPs, allowedip)
+			}
+		}
+		if !((foundV401 && foundV41281) || (foundV600001 && foundV680001)) {
+			goto err
+		}
+		if foundV401 && foundV41281 {
+			newAllowedIPs = append(newAllowedIPs, v400)
+		} else if foundV401 {
+			newAllowedIPs = append(newAllowedIPs, v401)
+		} else if foundV41281 {
+			newAllowedIPs = append(newAllowedIPs, v41281)
+		}
+		if foundV600001 && foundV680001 {
+			newAllowedIPs = append(newAllowedIPs, v600000)
+		} else if foundV600001 {
+			newAllowedIPs = append(newAllowedIPs, v600001)
+		} else if foundV680001 {
+			newAllowedIPs = append(newAllowedIPs, v680001)
+		}
+		cfg.Peers[0].AllowedIPs = newAllowedIPs
+	} else {
+		var (
+			foundV400    bool
+			foundV600000 bool
+		)
+		for _, allowedip := range cfg.Peers[0].AllowedIPs {
+			if equalIPCidrs(allowedip, v600000) {
+				foundV600000 = true
+			} else if equalIPCidrs(allowedip, v400) {
+				foundV400 = true
+			} else {
+				newAllowedIPs = append(newAllowedIPs, allowedip)
+			}
+		}
+		if !(foundV400 || foundV600000) {
+			goto err
+		}
+		if foundV400 {
+			newAllowedIPs = append(newAllowedIPs, v401)
+			newAllowedIPs = append(newAllowedIPs, v41281)
+		}
+		if foundV600000 {
+			newAllowedIPs = append(newAllowedIPs, v600001)
+			newAllowedIPs = append(newAllowedIPs, v680001)
+		}
+		cfg.Peers[0].AllowedIPs = newAllowedIPs
+	}
+	dlg.syntaxEdit.SetText(cfg.ToWgQuick())
+	return
+
+err:
+	text := dlg.syntaxEdit.Text()
+	dlg.syntaxEdit.SetText("")
+	dlg.syntaxEdit.SetText(text)
 }
 
 func (dlg *EditDialog) onBlockUntunneledTrafficStateChanged(state int) {
