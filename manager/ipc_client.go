@@ -11,8 +11,8 @@ import (
 	"os"
 	"sync"
 
-	"golang.zx2c4.com/wireguard/windows/conf"
-	"golang.zx2c4.com/wireguard/windows/updater"
+	"github.com/romikb/amneziawg-client-windows/updater"
+	"github.com/romikb/amneziawg-windows/conf"
 )
 
 type Tunnel struct {

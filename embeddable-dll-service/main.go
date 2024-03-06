@@ -15,8 +15,8 @@ import (
 	"golang.org/x/crypto/curve25519"
 	"golang.org/x/sys/windows"
 
-	"golang.zx2c4.com/wireguard/windows/conf"
-	"golang.zx2c4.com/wireguard/windows/tunnel"
+	"github.com/romikb/amneziawg-client-windows/conf"
+	"github.com/romikb/amneziawg-client-windows/tunnel"
 )
 
 //export WireGuardTunnelService

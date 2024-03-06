@@ -6,17 +6,16 @@
 package ui
 
 import (
-	"net/netip"
 	"strings"
 
 	"github.com/lxn/walk"
 	"github.com/lxn/win"
 	"golang.org/x/sys/windows"
 
-	"golang.zx2c4.com/wireguard/windows/conf"
-	"golang.zx2c4.com/wireguard/windows/l18n"
-	"golang.zx2c4.com/wireguard/windows/manager"
-	"golang.zx2c4.com/wireguard/windows/ui/syntax"
+	"github.com/romikb/amneziawg-client-windows/l18n"
+	"github.com/romikb/amneziawg-client-windows/manager"
+	"github.com/romikb/amneziawg-client-windows/ui/syntax"
+	"github.com/romikb/amneziawg-windows/conf"
 )
 
 type EditDialog struct {
@@ -182,102 +181,102 @@ func newEditDialog(owner walk.Form, tunnel *manager.Tunnel) (*EditDialog, error)
 }
 
 func (dlg *EditDialog) onBlockUntunneledTrafficCBCheckedChanged() {
-	if dlg.blockUntunneledTraficCheckGuard {
+	/*if dlg.blockUntunneledTraficCheckGuard {
+			return
+		}
+		var (
+			v400    = netip.PrefixFrom(netip.IPv4Unspecified(), 0)
+			v600000 = netip.PrefixFrom(netip.IPv6Unspecified(), 0)
+			v401    = netip.PrefixFrom(netip.AddrFrom4([4]byte{}), 1)
+			v600001 = netip.PrefixFrom(netip.AddrFrom16([16]byte{}), 1)
+			v41281  = netip.PrefixFrom(netip.AddrFrom4([4]byte{0x80}), 1)
+			v680001 = netip.PrefixFrom(netip.AddrFrom16([16]byte{0x80}), 1)
+		)
+
+		block := dlg.blockUntunneledTrafficCB.Checked()
+		cfg, err := conf.FromWgQuick(dlg.syntaxEdit.Text(), "temporary")
+		var newAllowedIPs []netip.Prefix
+
+		if err != nil {
+			goto err
+		}
+		if len(cfg.Peers) != 1 {
+			goto err
+		}
+
+		newAllowedIPs = make([]netip.Prefix, 0, len(cfg.Peers[0].AllowedIPs))
+		if block {
+			var (
+				foundV401    bool
+				foundV41281  bool
+				foundV600001 bool
+				foundV680001 bool
+			)
+			for _, allowedip := range cfg.Peers[0].AllowedIPs {
+				if allowedip == v600001 {
+					foundV600001 = true
+				} else if allowedip == v680001 {
+					foundV680001 = true
+				} else if allowedip == v401 {
+					foundV401 = true
+				} else if allowedip == v41281 {
+					foundV41281 = true
+				} else {
+					newAllowedIPs = append(newAllowedIPs, allowedip)
+				}
+			}
+			if !((foundV401 && foundV41281) || (foundV600001 && foundV680001)) {
+				goto err
+			}
+			if foundV401 && foundV41281 {
+				newAllowedIPs = append(newAllowedIPs, v400)
+			} else if foundV401 {
+				newAllowedIPs = append(newAllowedIPs, v401)
+			} else if foundV41281 {
+				newAllowedIPs = append(newAllowedIPs, v41281)
+			}
+			if foundV600001 && foundV680001 {
+				newAllowedIPs = append(newAllowedIPs, v600000)
+			} else if foundV600001 {
+				newAllowedIPs = append(newAllowedIPs, v600001)
+			} else if foundV680001 {
+				newAllowedIPs = append(newAllowedIPs, v680001)
+			}
+			cfg.Peers[0].AllowedIPs = newAllowedIPs
+		} else {
+			var (
+				foundV400    bool
+				foundV600000 bool
+			)
+			for _, allowedip := range cfg.Peers[0].AllowedIPs {
+				if allowedip == v600000 {
+					foundV600000 = true
+				} else if allowedip == v400 {
+					foundV400 = true
+				} else {
+					newAllowedIPs = append(newAllowedIPs, allowedip)
+				}
+			}
+			if !(foundV400 || foundV600000) {
+				goto err
+			}
+			if foundV400 {
+				newAllowedIPs = append(newAllowedIPs, v401)
+				newAllowedIPs = append(newAllowedIPs, v41281)
+			}
+			if foundV600000 {
+				newAllowedIPs = append(newAllowedIPs, v600001)
+				newAllowedIPs = append(newAllowedIPs, v680001)
+			}
+			cfg.Peers[0].AllowedIPs = newAllowedIPs
+		}
+		dlg.syntaxEdit.SetText(cfg.ToWgQuick())
 		return
-	}
-	var (
-		v400    = netip.PrefixFrom(netip.IPv4Unspecified(), 0)
-		v600000 = netip.PrefixFrom(netip.IPv6Unspecified(), 0)
-		v401    = netip.PrefixFrom(netip.AddrFrom4([4]byte{}), 1)
-		v600001 = netip.PrefixFrom(netip.AddrFrom16([16]byte{}), 1)
-		v41281  = netip.PrefixFrom(netip.AddrFrom4([4]byte{0x80}), 1)
-		v680001 = netip.PrefixFrom(netip.AddrFrom16([16]byte{0x80}), 1)
-	)
 
-	block := dlg.blockUntunneledTrafficCB.Checked()
-	cfg, err := conf.FromWgQuick(dlg.syntaxEdit.Text(), "temporary")
-	var newAllowedIPs []netip.Prefix
-
-	if err != nil {
-		goto err
-	}
-	if len(cfg.Peers) != 1 {
-		goto err
-	}
-
-	newAllowedIPs = make([]netip.Prefix, 0, len(cfg.Peers[0].AllowedIPs))
-	if block {
-		var (
-			foundV401    bool
-			foundV41281  bool
-			foundV600001 bool
-			foundV680001 bool
-		)
-		for _, allowedip := range cfg.Peers[0].AllowedIPs {
-			if allowedip == v600001 {
-				foundV600001 = true
-			} else if allowedip == v680001 {
-				foundV680001 = true
-			} else if allowedip == v401 {
-				foundV401 = true
-			} else if allowedip == v41281 {
-				foundV41281 = true
-			} else {
-				newAllowedIPs = append(newAllowedIPs, allowedip)
-			}
-		}
-		if !((foundV401 && foundV41281) || (foundV600001 && foundV680001)) {
-			goto err
-		}
-		if foundV401 && foundV41281 {
-			newAllowedIPs = append(newAllowedIPs, v400)
-		} else if foundV401 {
-			newAllowedIPs = append(newAllowedIPs, v401)
-		} else if foundV41281 {
-			newAllowedIPs = append(newAllowedIPs, v41281)
-		}
-		if foundV600001 && foundV680001 {
-			newAllowedIPs = append(newAllowedIPs, v600000)
-		} else if foundV600001 {
-			newAllowedIPs = append(newAllowedIPs, v600001)
-		} else if foundV680001 {
-			newAllowedIPs = append(newAllowedIPs, v680001)
-		}
-		cfg.Peers[0].AllowedIPs = newAllowedIPs
-	} else {
-		var (
-			foundV400    bool
-			foundV600000 bool
-		)
-		for _, allowedip := range cfg.Peers[0].AllowedIPs {
-			if allowedip == v600000 {
-				foundV600000 = true
-			} else if allowedip == v400 {
-				foundV400 = true
-			} else {
-				newAllowedIPs = append(newAllowedIPs, allowedip)
-			}
-		}
-		if !(foundV400 || foundV600000) {
-			goto err
-		}
-		if foundV400 {
-			newAllowedIPs = append(newAllowedIPs, v401)
-			newAllowedIPs = append(newAllowedIPs, v41281)
-		}
-		if foundV600000 {
-			newAllowedIPs = append(newAllowedIPs, v600001)
-			newAllowedIPs = append(newAllowedIPs, v680001)
-		}
-		cfg.Peers[0].AllowedIPs = newAllowedIPs
-	}
-	dlg.syntaxEdit.SetText(cfg.ToWgQuick())
-	return
-
-err:
-	text := dlg.syntaxEdit.Text()
-	dlg.syntaxEdit.SetText("")
-	dlg.syntaxEdit.SetText(text)
+	err:
+		text := dlg.syntaxEdit.Text()
+		dlg.syntaxEdit.SetText("")
+		dlg.syntaxEdit.SetText(text)*/
 }
 
 func (dlg *EditDialog) onBlockUntunneledTrafficStateChanged(state int) {

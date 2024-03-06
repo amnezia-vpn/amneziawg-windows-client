@@ -8,8 +8,8 @@ package ui
 import (
 	"github.com/lxn/walk"
 
-	"golang.zx2c4.com/wireguard/windows/l18n"
-	"golang.zx2c4.com/wireguard/windows/manager"
+	"github.com/romikb/amneziawg-client-windows/l18n"
+	"github.com/romikb/amneziawg-client-windows/manager"
 )
 
 type widthAndState struct {

@@ -15,9 +15,9 @@ import (
 
 	"golang.org/x/crypto/blake2b"
 
-	"golang.zx2c4.com/wireguard/windows/elevate"
-	"golang.zx2c4.com/wireguard/windows/updater/winhttp"
-	"golang.zx2c4.com/wireguard/windows/version"
+	"github.com/romikb/amneziawg-client-windows/elevate"
+	"github.com/romikb/amneziawg-client-windows/updater/winhttp"
+	"github.com/romikb/amneziawg-client-windows/version"
 )
 
 type DownloadProgress struct {

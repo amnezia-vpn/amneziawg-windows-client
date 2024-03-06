@@ -10,9 +10,9 @@ import (
 	"strings"
 	"time"
 
-	"golang.zx2c4.com/wireguard/windows/conf"
-	"golang.zx2c4.com/wireguard/windows/l18n"
-	"golang.zx2c4.com/wireguard/windows/manager"
+	"github.com/romikb/amneziawg-client-windows/l18n"
+	"github.com/romikb/amneziawg-client-windows/manager"
+	"github.com/romikb/amneziawg-windows/conf"
 
 	"github.com/lxn/walk"
 )

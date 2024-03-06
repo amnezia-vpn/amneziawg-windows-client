@@ -13,8 +13,8 @@ import (
 	"github.com/lxn/win"
 	"golang.org/x/sys/windows"
 
-	"golang.zx2c4.com/wireguard/windows/l18n"
-	"golang.zx2c4.com/wireguard/windows/manager"
+	"github.com/romikb/amneziawg-client-windows/l18n"
+	"github.com/romikb/amneziawg-client-windows/manager"
 )
 
 type ManageTunnelsWindow struct {
@@ -29,7 +29,7 @@ type ManageTunnelsWindow struct {
 }
 
 const (
-	manageWindowWindowClass = "WireGuard UI - Manage Tunnels"
+	manageWindowWindowClass = "AmneziaWG UI - Manage Tunnels"
 	raiseMsg                = win.WM_USER + 0x3510
 	aboutWireGuardCmd       = 0x37
 )
