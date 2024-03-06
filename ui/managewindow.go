@@ -29,7 +29,7 @@ type ManageTunnelsWindow struct {
 }
 
 const (
-	manageWindowWindowClass = "AmneziaWG UI - Manage Tunnels"
+	manageWindowWindowClass = "WireGuard UI - Manage Tunnels"
 	raiseMsg                = win.WM_USER + 0x3510
 	aboutWireGuardCmd       = 0x37
 )
