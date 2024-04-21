@@ -68,10 +68,10 @@ After, run the above `build` commands as usual, from a shell that has [`signtool
 
 ### Alternative: Building from Linux
 
-You must first have Mingw and ImageMagick installed.
+You must first have Mingw and ImageMagick installed. libarchive-tools for bsdtar.
 
 ```text
-$ sudo apt install mingw-w64 imagemagick
+$ sudo apt install mingw-w64 imagemagick libarchive-tools
 $ git clone https://git.zx2c4.com/wireguard-windows
 $ cd wireguard-windows
 $ make
