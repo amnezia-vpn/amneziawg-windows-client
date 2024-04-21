@@ -21,7 +21,7 @@ if exist .deps\prepared goto :build
 	rmdir /s /q .deps 2> NUL
 	mkdir .deps || goto :error
 	cd .deps || goto :error
-	call :download wix-binaries.zip https://wixtoolset.org/downloads/v3.14.0.4118/wix314-binaries.zip 34dcbba9952902bfb710161bd45ee2e721ffa878db99f738285a21c9b09c6edb || goto :error
+	call :download wix-binaries.zip https://github.com/wixtoolset/wix3/releases/download/wix3141rtm/wix314-binaries.zip 6ac824e1642d6f7277d0ed7ea09411a508f6116ba6fae0aa5f2c7daa2ff43d31 || goto :error
 	echo [+] Extracting wix-binaries.zip
 	mkdir wix\bin || goto :error
 	tar -xf wix-binaries.zip -C wix\bin || goto :error
@@ -32,7 +32,7 @@ if exist .deps\prepared goto :build
 
 :build
 	if exist ..\sign.bat call ..\sign.bat
-	set PATH=%BUILDDIR%..\.deps\llvm-mingw\bin;%PATH%
+	set PATH=%BUILDDIR%..\.deps\llvm-mingw-20231128-ucrt-x86_64\bin;%PATH%
 	set WIX=%BUILDDIR%.deps\wix\
 	set CFLAGS=-O3 -Wall -std=gnu11 -DWINVER=0x0601 -D_WIN32_WINNT=0x0601 -municode -DUNICODE -D_UNICODE -DNDEBUG
 	set LDFLAGS=-shared -s -Wl,--kill-at -Wl,--major-os-version=6 -Wl,--minor-os-version=1 -Wl,--major-subsystem-version=6 -Wl,--minor-subsystem-version=1 -Wl,--tsaware -Wl,--dynamicbase -Wl,--nxcompat -Wl,--export-all-symbols
