@@ -54,16 +54,22 @@ resources_arm64.syso: $(RESOURCE_FILES)
 	aarch64-w64-mingw32-windres $(RCFLAGS) -i $< -o $@
 
 amd64/wireguard.exe: export GOARCH := amd64
-amd64/wireguard.exe: resources_amd64.syso $(SOURCE_FILES)
+amd64/wireguard.exe: amd64/wintun.dll resources_amd64.syso $(SOURCE_FILES)
 	go build $(GOFLAGS) -o $@
 
 x86/wireguard.exe: export GOARCH := 386
-x86/wireguard.exe: resources_386.syso $(SOURCE_FILES)
+x86/wireguard.exe: x86/wintun.dll resources_386.syso $(SOURCE_FILES)
 	go build $(GOFLAGS) -o $@
 
 arm64/wireguard.exe: export GOARCH := arm64
 arm64/wireguard.exe: resources_arm64.syso $(SOURCE_FILES)
 	go build $(GOFLAGS) -o $@
+
+amd64/wintun.dll:
+	cp .deps/wintun/bin/amd64/wintun.dll $@
+
+x86/wintun.dll:
+	cp .deps/wintun/bin/x86/wintun.dll $@
 
 remaster: export GOARCH := amd64
 remaster: export GOPROXY := direct
