@@ -28,6 +28,15 @@ const (
 	highlightDelimiter
 	highlightTable
 	highlightCmd
+	highlightJc
+	highlightJmin
+	highlightJmax
+	highlightS1
+	highlightS2
+	highlightH1
+	highlightH2
+	highlightH3
+	highlightH4
 	highlightError
 )
 
@@ -370,6 +379,15 @@ const (
 	fieldPostUp
 	fieldPreDown
 	fieldPostDown
+	fieldJc
+	fieldJmin
+	fieldJmax
+	fieldS1
+	fieldS2
+	fieldH1
+	fieldH2
+	fieldH3
+	fieldH4
 	fieldPeerSection
 	fieldPublicKey
 	fieldPresharedKey
@@ -421,6 +439,24 @@ func (s stringSpan) field() field {
 		return fieldPreDown
 	case s.isCaselessSame("PostDown"):
 		return fieldPostDown
+	case s.isCaselessSame("Jc"):
+		return fieldJc
+	case s.isCaselessSame("Jmin"):
+		return fieldJmin
+	case s.isCaselessSame("Jmax"):
+		return fieldJmax
+	case s.isCaselessSame("S1"):
+		return fieldS1
+	case s.isCaselessSame("S2"):
+		return fieldS2
+	case s.isCaselessSame("H1"):
+		return fieldH1
+	case s.isCaselessSame("H2"):
+		return fieldH2
+	case s.isCaselessSame("H3"):
+		return fieldH3
+	case s.isCaselessSame("H4"):
+		return fieldH4
 	}
 	return fieldInvalid
 }
@@ -541,6 +577,24 @@ func (hsa *highlightSpanArray) highlightValue(parent, s stringSpan, section fiel
 		hsa.append(parent.s, stringSpan{s.at(colon + 1), s.len - colon - 1}, highlightPort)
 	case fieldAddress, fieldDNS, fieldAllowedIPs:
 		hsa.highlightMultivalue(parent, s, section)
+	case fieldJc:
+		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 128), highlightJc))
+	case fieldJmin:
+		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 1280), highlightJmin))
+	case fieldJmax:
+		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 1280), highlightJmax))
+	case fieldS1:
+		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 150), highlightS1))
+	case fieldS2:
+		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 150), highlightS2))
+	case fieldH1:
+		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 2_147_483_647), highlightH1))
+	case fieldH2:
+		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 2_147_483_647), highlightH2))
+	case fieldH3:
+		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 2_147_483_647), highlightH3))
+	case fieldH4:
+		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 2_147_483_647), highlightH4))
 	default:
 		hsa.append(parent.s, s, highlightError)
 	}
