@@ -11,9 +11,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/amnezia-vpn/amneziawg-windows-client/l18n"
+	"github.com/amnezia-vpn/amneziawg-windows-client/ringlogger"
 	"github.com/lxn/walk"
-	"github.com/romikb/amneziawg-client-windows/l18n"
-	"github.com/romikb/amneziawg-client-windows/ringlogger"
 )
 
 const (

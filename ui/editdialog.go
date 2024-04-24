@@ -13,10 +13,10 @@ import (
 	"github.com/lxn/win"
 	"golang.org/x/sys/windows"
 
-	"github.com/romikb/amneziawg-client-windows/l18n"
-	"github.com/romikb/amneziawg-client-windows/manager"
-	"github.com/romikb/amneziawg-client-windows/ui/syntax"
-	"github.com/romikb/amneziawg-windows/conf"
+	"github.com/amnezia-vpn/amneziawg-windows-client/l18n"
+	"github.com/amnezia-vpn/amneziawg-windows-client/manager"
+	"github.com/amnezia-vpn/amneziawg-windows-client/ui/syntax"
+	"github.com/amnezia-vpn/awg-windows/conf"
 )
 
 type EditDialog struct {

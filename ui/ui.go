@@ -15,9 +15,9 @@ import (
 	"github.com/lxn/win"
 	"golang.org/x/sys/windows"
 
-	"github.com/romikb/amneziawg-client-windows/l18n"
-	"github.com/romikb/amneziawg-client-windows/manager"
-	"github.com/romikb/amneziawg-client-windows/version"
+	"github.com/amnezia-vpn/amneziawg-windows-client/l18n"
+	"github.com/amnezia-vpn/amneziawg-windows-client/manager"
+	"github.com/amnezia-vpn/amneziawg-windows-client/version"
 )
 
 var (

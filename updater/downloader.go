@@ -15,9 +15,9 @@ import (
 
 	"golang.org/x/crypto/blake2b"
 
-	"github.com/romikb/amneziawg-client-windows/elevate"
-	"github.com/romikb/amneziawg-client-windows/updater/winhttp"
-	"github.com/romikb/amneziawg-client-windows/version"
+	"github.com/amnezia-vpn/amneziawg-windows-client/elevate"
+	"github.com/amnezia-vpn/amneziawg-windows-client/updater/winhttp"
+	"github.com/amnezia-vpn/amneziawg-windows-client/version"
 )
 
 type DownloadProgress struct {

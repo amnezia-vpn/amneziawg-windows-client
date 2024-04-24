@@ -20,10 +20,10 @@ import (
 	"golang.org/x/sys/windows/svc"
 	"golang.zx2c4.com/wireguard/windows/driver"
 
-	"github.com/romikb/amneziawg-client-windows/elevate"
-	"github.com/romikb/amneziawg-client-windows/ringlogger"
-	"github.com/romikb/amneziawg-client-windows/services"
-	"github.com/romikb/amneziawg-windows/conf"
+	"github.com/amnezia-vpn/amneziawg-windows-client/elevate"
+	"github.com/amnezia-vpn/amneziawg-windows-client/ringlogger"
+	"github.com/amnezia-vpn/amneziawg-windows-client/services"
+	"github.com/amnezia-vpn/awg-windows/conf"
 )
 
 type managerService struct{}

@@ -14,8 +14,8 @@ import (
 	"golang.org/x/sys/windows"
 	"golang.zx2c4.com/wireguard/windows/driver"
 
-	"github.com/romikb/amneziawg-client-windows/l18n"
-	"github.com/romikb/amneziawg-client-windows/version"
+	"github.com/amnezia-vpn/amneziawg-windows-client/l18n"
+	"github.com/amnezia-vpn/amneziawg-windows-client/version"
 )
 
 var (
