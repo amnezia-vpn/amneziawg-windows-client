@@ -6,4 +6,5 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: build.sh
+      shell: cmd
       run: build.sh
