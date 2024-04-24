@@ -1,0 +1,9 @@
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    name: build
+    runs-on: windows-latest
+    steps:
+    - name: build.sh
+      run: build.sh
