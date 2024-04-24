@@ -5,6 +5,7 @@ jobs:
     name: build
     runs-on: windows-latest
     steps:
+    - uses: actions/checkout@v4
     - name: build.sh
       shell: cmd
       run: build.sh
