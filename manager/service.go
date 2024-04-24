@@ -9,6 +9,7 @@ import (
 	"errors"
 	"log"
 	"os"
+	"path/filepath"
 	"runtime"
 	"strconv"
 	"sync"
@@ -19,10 +20,10 @@ import (
 	"golang.org/x/sys/windows/svc"
 	"golang.zx2c4.com/wireguard/windows/driver"
 
-	"golang.zx2c4.com/wireguard/windows/conf"
-	"golang.zx2c4.com/wireguard/windows/elevate"
-	"golang.zx2c4.com/wireguard/windows/ringlogger"
-	"golang.zx2c4.com/wireguard/windows/services"
+	"github.com/romikb/amneziawg-client-windows/elevate"
+	"github.com/romikb/amneziawg-client-windows/ringlogger"
+	"github.com/romikb/amneziawg-client-windows/services"
+	"github.com/romikb/amneziawg-windows/conf"
 )
 
 type managerService struct{}
@@ -43,7 +44,7 @@ func (service *managerService) Execute(args []string, r <-chan svc.ChangeRequest
 	}()
 
 	var logFile string
-	logFile, err = conf.LogFile(true)
+	logFile, err = LogFile(true)
 	if err != nil {
 		serviceError = services.ErrorRingloggerOpen
 		return
@@ -352,4 +353,12 @@ loop:
 
 func Run() error {
 	return svc.Run("WireGuardManager", &managerService{})
+}
+
+func LogFile(createRoot bool) (string, error) {
+	root, err := conf.RootDirectory(createRoot)
+	if err != nil {
+		return "", err
+	}
+	return filepath.Join(root, "log.bin"), nil
 }

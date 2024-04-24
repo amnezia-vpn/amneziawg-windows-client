@@ -10,12 +10,12 @@ RCFLAGS := -DWIREGUARD_VERSION_ARRAY=$(subst $(space),$(comma),$(wordlist 1,4,$(
 
 rwildcard=$(foreach d,$(filter-out .deps,$(wildcard $1*)),$(call rwildcard,$d/,$2) $(filter $(subst *,%,$2),$d))
 SOURCE_FILES := $(call rwildcard,,*.go) .deps/go/prepared go.mod go.sum
-RESOURCE_FILES := resources.rc version/version.go manifest.xml $(patsubst %.svg,%.ico,$(wildcard ui/icon/*.svg)) .deps/wireguard-nt/prepared
+RESOURCE_FILES := resources.rc version/version.go manifest.xml $(patsubst %.svg,%.ico,$(wildcard ui/icon/*.svg)) .deps/wintun/prepared
 
 DEPLOYMENT_HOST ?= winvm
 DEPLOYMENT_PATH ?= Desktop
 
-all: amd64/wireguard.exe x86/wireguard.exe arm64/wireguard.exe
+all: amd64/wireguard.exe x86/wireguard.exe
 
 define download =
 .distfiles/$(1):
@@ -25,8 +25,8 @@ define download =
 	if ! mv $$@.unverified $$@; then rm -f $$@.unverified; exit 1; fi
 endef
 
-$(eval $(call download,go.tar.gz,https://go.dev/dl/go1.18.linux-amd64.tar.gz,e85278e98f57cdb150fe8409e6e5df5343ecb13cebf03a5d5ff12bd55a80264f))
-$(eval $(call download,wireguard-nt.zip,https://download.wireguard.com/wireguard-nt/wireguard-nt-0.10.1.zip,772c0b1463d8d2212716f43f06f4594d880dea4f735165bd68e388fc41b81605))
+$(eval $(call download,go.tar.gz,https://go.dev/dl/go1.22.0.linux-amd64.tar.gz,f6c8a87aa03b92c4b0bf3d558e28ea03006eb29db78917daec5cfb6ec1046265))
+$(eval $(call download,wintun.zip,https://www.wintun.net/builds/wintun-0.14.1.zip,07c256185d6ee3652e09fa55c0b673e2624b565e02c4b9091c79ca7d2f24ef51))
 
 .deps/go/prepared: .distfiles/go.tar.gz
 	mkdir -p .deps
@@ -35,35 +35,41 @@ $(eval $(call download,wireguard-nt.zip,https://download.wireguard.com/wireguard
 	chmod -R +w .deps/go
 	touch $@
 
-.deps/wireguard-nt/prepared: .distfiles/wireguard-nt.zip
+.deps/wintun/prepared: .distfiles/wintun.zip
 	mkdir -p .deps
-	rm -rf .deps/wireguard-nt
-	bsdtar -C .deps -xf .distfiles/wireguard-nt.zip
+	rm -rf .deps/wintun
+	bsdtar -C .deps -xf .distfiles/wintun.zip
 	touch $@
 
 %.ico: %.svg
 	convert -background none $< -define icon:auto-resize="256,192,128,96,64,48,40,32,24,20,16" -compress zip $@
 
 resources_amd64.syso: $(RESOURCE_FILES)
-	x86_64-w64-mingw32-windres $(RCFLAGS) -I .deps/wireguard-nt/bin/amd64 -i $< -o $@
+	x86_64-w64-mingw32-windres $(RCFLAGS) -i $< -o $@
 
 resources_386.syso: $(RESOURCE_FILES)
-	i686-w64-mingw32-windres $(RCFLAGS) -I .deps/wireguard-nt/bin/x86 -i $< -o $@
+	i686-w64-mingw32-windres $(RCFLAGS) -i $< -o $@
 
 resources_arm64.syso: $(RESOURCE_FILES)
-	aarch64-w64-mingw32-windres $(RCFLAGS) -I .deps/wireguard-nt/bin/arm64 -i $< -o $@
+	aarch64-w64-mingw32-windres $(RCFLAGS) -i $< -o $@
 
 amd64/wireguard.exe: export GOARCH := amd64
-amd64/wireguard.exe: resources_amd64.syso $(SOURCE_FILES)
+amd64/wireguard.exe: amd64/wintun.dll resources_amd64.syso $(SOURCE_FILES)
 	go build $(GOFLAGS) -o $@
 
 x86/wireguard.exe: export GOARCH := 386
-x86/wireguard.exe: resources_386.syso $(SOURCE_FILES)
+x86/wireguard.exe: x86/wintun.dll resources_386.syso $(SOURCE_FILES)
 	go build $(GOFLAGS) -o $@
 
 arm64/wireguard.exe: export GOARCH := arm64
 arm64/wireguard.exe: resources_arm64.syso $(SOURCE_FILES)
 	go build $(GOFLAGS) -o $@
+
+amd64/wintun.dll:
+	cp .deps/wintun/bin/amd64/wintun.dll $@
+
+x86/wintun.dll:
+	cp .deps/wintun/bin/x86/wintun.dll $@
 
 remaster: export GOARCH := amd64
 remaster: export GOPROXY := direct

@@ -84,6 +84,9 @@
 				<File Source="..\$(var.WIREGUARD_PLATFORM)\wg.exe" KeyPath="yes" />
 				<Environment Id="PATH" Name="PATH" System="yes" Action="set" Part="last" Permanent="no" Value="[WireGuardFolder]" />
 			</Component>
+			<Component Directory="WireGuardFolder" Id="WintunLibrary" Guid="ac88e408-9b78-4eb3-9d2a-99305f2e5a51">
+				<File Source="..\$(var.WIREGUARD_PLATFORM)\wintun.dll" KeyPath="yes" />
+			</Component>
 		</ComponentGroup>
 
 		<!--

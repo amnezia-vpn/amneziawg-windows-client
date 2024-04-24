@@ -19,8 +19,9 @@ import (
 	"golang.org/x/sys/windows"
 	"golang.org/x/sys/windows/svc"
 
-	"golang.zx2c4.com/wireguard/windows/conf"
-	"golang.zx2c4.com/wireguard/windows/updater"
+	"github.com/romikb/amneziawg-client-windows/updater"
+	"github.com/romikb/amneziawg-windows/conf"
+	"github.com/romikb/amneziawg-windows/services"
 )
 
 var (
@@ -48,7 +49,9 @@ func (s *ManagerService) StoredConfig(tunnelName string) (*conf.Config, error) {
 }
 
 func (s *ManagerService) RuntimeConfig(tunnelName string) (*conf.Config, error) {
-	storedConfig, err := conf.LoadFromName(tunnelName)
+	log.Printf("[%s] RuntimeConfig", tunnelName)
+	return nil, nil
+	/*storedConfig, err := conf.LoadFromName(tunnelName)
 	if err != nil {
 		return nil, err
 	}
@@ -67,7 +70,7 @@ func (s *ManagerService) RuntimeConfig(tunnelName string) (*conf.Config, error) 
 	if s.elevatedToken == 0 {
 		conf.Redact()
 	}
-	return conf, nil
+	return conf, nil*/
 }
 
 func (s *ManagerService) Start(tunnelName string) error {
@@ -81,11 +84,11 @@ func (s *ManagerService) Start(tunnelName string) error {
 	tt := make([]string, 0, len(trackedTunnels))
 	var inTransition string
 	for t, state := range trackedTunnels {
-		c2, err := conf.LoadFromName(t)
+		/*c2, err := conf.LoadFromName(t)
 		if err != nil || !c.IntersectsWith(c2) {
 			// If we can't get the config, assume it doesn't intersect.
 			continue
-		}
+		}*/
 		tt = append(tt, t)
 		if len(t) > 0 && (state == TunnelStarting || state == TunnelUnknown) {
 			inTransition = t
@@ -131,7 +134,7 @@ func (s *ManagerService) Stop(tunnelName string) error {
 }
 
 func (s *ManagerService) WaitForStop(tunnelName string) error {
-	serviceName, err := conf.ServiceNameOfTunnel(tunnelName)
+	serviceName, err := services.ServiceNameOfTunnel(tunnelName)
 	if err != nil {
 		return err
 	}
@@ -162,7 +165,7 @@ func (s *ManagerService) Delete(tunnelName string) error {
 }
 
 func (s *ManagerService) State(tunnelName string) (TunnelState, error) {
-	serviceName, err := conf.ServiceNameOfTunnel(tunnelName)
+	serviceName, err := services.ServiceNameOfTunnel(tunnelName)
 	if err != nil {
 		return 0, err
 	}

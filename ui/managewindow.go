@@ -13,8 +13,8 @@ import (
 	"github.com/lxn/win"
 	"golang.org/x/sys/windows"
 
-	"golang.zx2c4.com/wireguard/windows/l18n"
-	"golang.zx2c4.com/wireguard/windows/manager"
+	"github.com/romikb/amneziawg-client-windows/l18n"
+	"github.com/romikb/amneziawg-client-windows/manager"
 )
 
 type ManageTunnelsWindow struct {
@@ -69,7 +69,7 @@ func NewManageTunnelsWindow() (*ManageTunnelsWindow, error) {
 	if icon, err := loadLogoIcon(32); err == nil {
 		mtw.SetIcon(icon)
 	}
-	mtw.SetTitle("WireGuard")
+	mtw.SetTitle("AmneziaWG")
 	mtw.SetFont(font)
 	mtw.SetSize(walk.Size{675, 525})
 	mtw.SetMinMaxSize(walk.Size{500, 400}, walk.Size{0, 0})

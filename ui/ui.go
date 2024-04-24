@@ -15,9 +15,9 @@ import (
 	"github.com/lxn/win"
 	"golang.org/x/sys/windows"
 
-	"golang.zx2c4.com/wireguard/windows/l18n"
-	"golang.zx2c4.com/wireguard/windows/manager"
-	"golang.zx2c4.com/wireguard/windows/version"
+	"github.com/romikb/amneziawg-client-windows/l18n"
+	"github.com/romikb/amneziawg-client-windows/manager"
+	"github.com/romikb/amneziawg-client-windows/version"
 )
 
 var (

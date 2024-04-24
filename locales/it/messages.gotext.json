@@ -296,7 +296,7 @@
                 {
                     "id": "Bytes",
                     "string": "%[1]d",
-                    "type": "golang.zx2c4.com/wireguard/windows/conf.Bytes",
+                    "type": "github.com/romikb/amneziawg-client-windows/conf.Bytes",
                     "underlyingType": "uint64",
                     "argNum": 1,
                     "expr": "b"

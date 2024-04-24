@@ -18,15 +18,14 @@ import (
 
 	"golang.org/x/sys/windows"
 
-	"golang.zx2c4.com/wireguard/windows/conf"
-	"golang.zx2c4.com/wireguard/windows/driver"
-	"golang.zx2c4.com/wireguard/windows/elevate"
-	"golang.zx2c4.com/wireguard/windows/l18n"
-	"golang.zx2c4.com/wireguard/windows/manager"
-	"golang.zx2c4.com/wireguard/windows/ringlogger"
-	"golang.zx2c4.com/wireguard/windows/tunnel"
-	"golang.zx2c4.com/wireguard/windows/ui"
-	"golang.zx2c4.com/wireguard/windows/updater"
+	"github.com/romikb/amneziawg-windows/tunnel"
+
+	"github.com/romikb/amneziawg-client-windows/elevate"
+	"github.com/romikb/amneziawg-client-windows/l18n"
+	"github.com/romikb/amneziawg-client-windows/manager"
+	"github.com/romikb/amneziawg-client-windows/ringlogger"
+	"github.com/romikb/amneziawg-client-windows/ui"
+	"github.com/romikb/amneziawg-client-windows/updater"
 )
 
 func setLogFile() {
@@ -74,7 +73,6 @@ func usage() {
 		"/ui CMD_READ_HANDLE CMD_WRITE_HANDLE CMD_EVENT_HANDLE LOG_MAPPING_HANDLE",
 		"/dumplog [/tail]",
 		"/update",
-		"/removedriver",
 	}
 	builder := strings.Builder{}
 	for _, flag := range flags {
@@ -281,7 +279,7 @@ func main() {
 		}
 		file := os.NewFile(uintptr(outputHandle), "stdout")
 		defer file.Close()
-		logPath, err := conf.LogFile(false)
+		logPath, err := manager.LogFile(false)
 		if err != nil {
 			fatal(err)
 		}
@@ -312,16 +310,6 @@ func main() {
 			if progress.Complete || progress.Error != nil {
 				return
 			}
-		}
-		return
-	case "/removedriver":
-		if len(os.Args) != 2 {
-			usage()
-		}
-		_ = driver.UninstallLegacyWintun() // Best effort
-		err := driver.Uninstall()
-		if err != nil {
-			fatal(err)
 		}
 		return
 	}
