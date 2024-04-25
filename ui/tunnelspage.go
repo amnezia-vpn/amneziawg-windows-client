@@ -155,13 +155,6 @@ func (tp *TunnelsPage) CreateToolbar() error {
 	importAction.SetDefault(true)
 	importAction.Triggered().Attach(tp.onImport)
 	addMenu.Actions().Add(importAction)
-	amneziaVPNAction := walk.NewAction()
-	amneziaVPNAction.SetText(l18n.Sprintf("&Import AmneziaVPN config…"))
-	amneziaVpnActionIcon, _ := loadSystemIcon("imageres", -3, 16)
-	amneziaVPNAction.SetImage(amneziaVpnActionIcon)
-	amneziaVPNAction.SetShortcut(walk.Shortcut{walk.ModControl, walk.KeyP})
-	amneziaVPNAction.Triggered().Attach(tp.onAmneziaVPN)
-	addMenu.Actions().Add(amneziaVPNAction)
 	addAction := walk.NewAction()
 	addAction.SetText(l18n.Sprintf("Add &empty tunnel…"))
 	addActionIcon, _ := loadSystemIcon("imageres", -2, 16)
@@ -220,13 +213,6 @@ func (tp *TunnelsPage) CreateToolbar() error {
 	importAction2.SetVisible(IsAdmin)
 	contextMenu.Actions().Add(importAction2)
 	tp.ShortcutActions().Add(importAction2)
-	amneziaVPNAction2 := walk.NewAction()
-	amneziaVPNAction2.SetText(l18n.Sprintf("&Import AmneziaVPN config…"))
-	amneziaVPNAction2.SetShortcut(walk.Shortcut{walk.ModControl, walk.KeyP})
-	amneziaVPNAction2.Triggered().Attach(tp.onAmneziaVPN)
-	amneziaVPNAction2.SetVisible(IsAdmin)
-	contextMenu.Actions().Add(amneziaVPNAction2)
-	tp.ShortcutActions().Add(amneziaVPNAction2)
 	addAction2 := walk.NewAction()
 	addAction2.SetText(l18n.Sprintf("Add &empty tunnel…"))
 	addAction2.SetShortcut(walk.Shortcut{walk.ModControl, walk.KeyN})
@@ -587,10 +573,6 @@ func (tp *TunnelsPage) onExportTunnels() {
 	}
 
 	tp.exportTunnels(dlg.FilePath)
-}
-
-func (tp *TunnelsPage) onAmneziaVPN() {
-	runAmneziaVPNDialog(tp.Form(), nil)
 }
 
 func (tp *TunnelsPage) swapFiller(enabled bool) bool {

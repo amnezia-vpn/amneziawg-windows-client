@@ -190,12 +190,12 @@ func (dlg *EditDialog) onBlockUntunneledTrafficCBCheckedChanged() {
 		return
 	}
 	var (
-		v400    = conf.IPCidr{IP: net.IPv4zero, Cidr: 0}                                              //v400    = netip.PrefixFrom(netip.IPv4Unspecified(), 0)
-		v600000 = conf.IPCidr{IP: net.IPv6zero, Cidr: 0}                                              //v600000 = netip.PrefixFrom(netip.IPv6Unspecified(), 0)
-		v401    = conf.IPCidr{IP: net.IPv4zero, Cidr: 1}                                              //v401    = netip.PrefixFrom(netip.AddrFrom4([4]byte{}), 1)
-		v600001 = conf.IPCidr{IP: net.IPv6zero, Cidr: 1}                                              //v600001 = netip.PrefixFrom(netip.AddrFrom16([16]byte{}), 1)
-		v41281  = conf.IPCidr{IP: net.IPv4(0x80, 0, 0, 0), Cidr: 1}                                   //v41281  = netip.PrefixFrom(netip.AddrFrom4([4]byte{0x80}), 1)
-		v680001 = conf.IPCidr{IP: net.IP{0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, Cidr: 1} //v680001 = netip.PrefixFrom(netip.AddrFrom16([16]byte{0x80}), 1)
+		v400    = conf.IPCidr{IP: net.IPv4zero, Cidr: 0}
+		v600000 = conf.IPCidr{IP: net.IPv6zero, Cidr: 0}
+		v401    = conf.IPCidr{IP: net.IPv4zero, Cidr: 1}
+		v600001 = conf.IPCidr{IP: net.IPv6zero, Cidr: 1}
+		v41281  = conf.IPCidr{IP: net.IPv4(0x80, 0, 0, 0), Cidr: 1}
+		v680001 = conf.IPCidr{IP: net.IP{0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, Cidr: 1}
 	)
 
 	block := dlg.blockUntunneledTrafficCB.Checked()
