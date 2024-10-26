@@ -1,0 +1,209 @@
+name: Build AmneziaWG for Windows
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-amd64:
+    runs-on: windows-latest
+    name: Build amd64 AmneziaWG
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21.0'
+
+      - name: Install Dependencies
+        run: go mod download
+      
+      - name: Build AmneziaWG amd64
+        run: go build -o amneziawg.exe -ldflags "-H=windowsgui" .
+        env:
+          GOARCH: amd64
+
+      - name: Create artifacts directory
+        run: |
+          New-Item -ItemType Directory -Path ./artifacts -Force
+
+      - name: Zip amd64 artifact
+        run: |
+          powershell -Command "Compress-Archive -Path amneziawg.exe -DestinationPath ./artifacts/amneziawg-amd64.zip"
+
+      - name: Upload amd64 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: amneziawg-amd64
+          path: ./artifacts/amneziawg-amd64.zip
+
+  build-arm64:
+    runs-on: windows-latest
+    name: Build arm64 AmneziaWG
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21.0'
+
+      - name: Install Dependencies
+        run: go mod download
+
+      - name: Build AmneziaWG arm64
+        run: go build -o amneziawg.exe -ldflags "-H=windowsgui" .
+        env:
+          GOARCH: arm64
+
+      - name: Create artifacts directory
+        run: |
+          New-Item -ItemType Directory -Path ./artifacts -Force
+
+      - name: Zip arm64 artifact
+        run: |
+          powershell -Command "Compress-Archive -Path amneziawg.exe -DestinationPath ./artifacts/amneziawg-arm64.zip"
+
+      - name: Upload arm64 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: amneziawg-arm64
+          path: ./artifacts/amneziawg-arm64.zip
+
+  build-x86:
+    runs-on: windows-latest
+    name: Build x86 AmneziaWG
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21.0'
+
+      - name: Install Dependencies
+        run: go mod download
+
+      - name: Build AmneziaWG x86
+        run: go build -o amneziawg.exe -ldflags "-H=windowsgui" .
+        env:
+          GOARCH: 386
+
+      - name: Create artifacts directory
+        run: |
+          New-Item -ItemType Directory -Path ./artifacts -Force
+
+      - name: Zip x86 artifact
+        run: |
+          powershell -Command "Compress-Archive -Path amneziawg.exe -DestinationPath ./artifacts/amneziawg-x86.zip"
+
+      - name: Upload x86 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: amneziawg-x86
+          path: ./artifacts/amneziawg-x86.zip
+
+  create_release:
+    needs: [build-amd64, build-arm64, build-x86]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository for tagging
+        uses: actions/checkout@v4
+
+      - name: Get current time
+        id: time
+        run: echo "datetime=$(date -u '+%Y%m%d-%H%M')" >> $GITHUB_ENV
+
+      - name: Create tag
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git tag -a "v${{ env.datetime }}" -m "Release on ${{ env.datetime }}"
+          git push origin "v${{ env.datetime }}"
+
+      - name: Download amd64 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: amneziawg-amd64
+          path: ./artifacts
+
+      - name: Download arm64 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: amneziawg-arm64
+          path: ./artifacts
+
+      - name: Download x86 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: amneziawg-x86
+          path: ./artifacts
+
+      - name: Calculate SHA256 for amd64 artifact
+        id: sha256_amd64
+        run: |
+          sha256=$(sha256sum ./artifacts/amneziawg-amd64.zip | awk '{print $1}')
+          echo "sha256_amd64=$sha256" >> $GITHUB_ENV
+
+      - name: Calculate SHA256 for arm64 artifact
+        id: sha256_arm64
+        run: |
+          sha256=$(sha256sum ./artifacts/amneziawg-arm64.zip | awk '{print $1}')
+          echo "sha256_arm64=$sha256" >> $GITHUB_ENV
+
+      - name: Calculate SHA256 for x86 artifact
+        id: sha256_x86
+        run: |
+          sha256=$(sha256sum ./artifacts/amneziawg-x86.zip | awk '{print $1}')
+          echo "sha256_x86=$sha256" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v2.0.7
+        with:
+          tag_name: "v${{ env.datetime }}"
+          name: "Release ${{ env.datetime }}"
+          body: |
+            Automated release AmneziaWG for Windows (amd64, arm64, and x86) from actions.
+            SHA256 (amd64): ${{ env.sha256_amd64 }}
+            SHA256 (arm64): ${{ env.sha256_arm64 }}
+            SHA256 (x86): ${{ env.sha256_x86 }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload amd64 artifact to release
+        uses: softprops/action-gh-release@v2.0.7
+        with:
+          tag_name: "v${{ env.datetime }}"
+          files: ./artifacts/amneziawg-amd64.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload arm64 artifact to release
+        uses: softprops/action-gh-release@v2.0.7
+        with:
+          tag_name: "v${{ env.datetime }}"
+          files: ./artifacts/amneziawg-arm64.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload x86 artifact to release
+        uses: softprops/action-gh-release@v2.0.7
+        with:
+          tag_name: "v${{ env.datetime }}"
+          files: ./artifacts/amneziawg-x86.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
