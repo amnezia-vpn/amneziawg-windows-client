@@ -8,6 +8,7 @@ package ui
 import (
 	"sort"
 	"strings"
+	"time"
 
 	"github.com/amnezia-vpn/amneziawg-windows-client/l18n"
 	"github.com/amnezia-vpn/amneziawg-windows-client/manager"
@@ -336,6 +337,38 @@ func (tray *Tray) setTunnelState(tunnel *manager.Tunnel, state manager.TunnelSta
 
 	case manager.TunnelStopped:
 		tunnelAction.SetChecked(false)
+	}
+}
+
+func (tray *Tray) UpdateFound() {
+	action := walk.NewAction()
+	action.SetText(l18n.Sprintf("An Update is Available!"))
+	menuIcon, _ := loadShieldIcon(16)
+	action.SetImage(menuIcon)
+	action.SetDefault(true)
+	showUpdateTab := func() {
+		if !tray.mtw.Visible() {
+			tray.mtw.tunnelsPage.listView.SelectFirstActiveTunnel()
+		}
+		tray.mtw.tabs.SetCurrentIndex(2)
+		raise(tray.mtw.Handle())
+	}
+	action.Triggered().Attach(showUpdateTab)
+	tray.clicked = showUpdateTab
+	tray.ContextMenu().Actions().Insert(tray.ContextMenu().Actions().Len()-2, action)
+
+	showUpdateBalloon := func() {
+		icon, _ := loadShieldIcon(128)
+		tray.ShowCustom(l18n.Sprintf("WireGuard Update Available"), l18n.Sprintf("An update to WireGuard is now available. You are advised to update as soon as possible."), icon)
+	}
+
+	timeSinceStart := time.Now().Sub(startTime)
+	if timeSinceStart < time.Second*3 {
+		time.AfterFunc(time.Second*3-timeSinceStart, func() {
+			tray.mtw.Synchronize(showUpdateBalloon)
+		})
+	} else {
+		showUpdateBalloon()
 	}
 }
 
