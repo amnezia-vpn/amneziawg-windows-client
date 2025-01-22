@@ -25,6 +25,7 @@ import (
 	"github.com/amnezia-vpn/amneziawg-windows-client/manager"
 	"github.com/amnezia-vpn/amneziawg-windows-client/ringlogger"
 	"github.com/amnezia-vpn/amneziawg-windows-client/ui"
+	"github.com/amnezia-vpn/amneziawg-windows-client/updater"
 )
 
 func setLogFile() {
@@ -71,6 +72,7 @@ func usage() {
 		"/tunnelservice CONFIG_PATH",
 		"/ui CMD_READ_HANDLE CMD_WRITE_HANDLE CMD_EVENT_HANDLE LOG_MAPPING_HANDLE",
 		"/dumplog [/tail]",
+		"/update",
 	}
 	builder := strings.Builder{}
 	for _, flag := range flags {
@@ -284,6 +286,30 @@ func main() {
 		err = ringlogger.DumpTo(logPath, file, len(os.Args) == 3 && os.Args[2] == "/tail")
 		if err != nil {
 			fatal(err)
+		}
+		return
+	case "/update":
+		if len(os.Args) != 2 {
+			usage()
+		}
+		for progress := range updater.DownloadVerifyAndExecute(0) {
+			if len(progress.Activity) > 0 {
+				if progress.BytesTotal > 0 || progress.BytesDownloaded > 0 {
+					var percent float64
+					if progress.BytesTotal > 0 {
+						percent = float64(progress.BytesDownloaded) / float64(progress.BytesTotal) * 100.0
+					}
+					log.Printf("%s: %d/%d (%.2f%%)\n", progress.Activity, progress.BytesDownloaded, progress.BytesTotal, percent)
+				} else {
+					log.Println(progress.Activity)
+				}
+			}
+			if progress.Error != nil {
+				log.Printf("Error: %v\n", progress.Error)
+			}
+			if progress.Complete || progress.Error != nil {
+				return
+			}
 		}
 		return
 	}

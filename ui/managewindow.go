@@ -23,6 +23,7 @@ type ManageTunnelsWindow struct {
 	tabs        *walk.TabWidget
 	tunnelsPage *TunnelsPage
 	logPage     *LogPage
+	updatePage  *UpdatePage
 
 	tunnelChangedCB *manager.TunnelChangeCallback
 }
@@ -172,6 +173,20 @@ func (mtw *ManageTunnelsWindow) onTunnelChange(tunnel *manager.Tunnel, state, gl
 			showWarningCustom(mtw, l18n.Sprintf("Tunnel Error"), l18n.Sprintf("%s\n\nPlease consult the log for more information.", errMsg))
 		}
 	})
+}
+
+func (mtw *ManageTunnelsWindow) UpdateFound() {
+	if mtw.updatePage != nil {
+		return
+	}
+	if IsAdmin {
+		mtw.SetTitle(l18n.Sprintf("%s (out of date)", mtw.Title()))
+	}
+	updatePage, err := NewUpdatePage()
+	if err == nil {
+		mtw.updatePage = updatePage
+		mtw.tabs.Pages().Add(updatePage.TabPage)
+	}
 }
 
 func (mtw *ManageTunnelsWindow) WndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) uintptr {

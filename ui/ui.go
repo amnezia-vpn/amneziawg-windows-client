@@ -67,6 +67,30 @@ func RunUI() {
 		})
 	})
 
+	onUpdateNotification := func(updateState manager.UpdateState) {
+		if updateState == manager.UpdateStateUnknown {
+			return
+		}
+		mtw.Synchronize(func() {
+			switch updateState {
+			case manager.UpdateStateFoundUpdate:
+				mtw.UpdateFound()
+				if tray != nil && IsAdmin {
+					tray.UpdateFound()
+				}
+			case manager.UpdateStateUpdatesDisabledUnofficialBuild:
+				mtw.SetTitle(l18n.Sprintf("%s (unsigned build, no updates)", mtw.Title()))
+			}
+		})
+	}
+	manager.IPCClientRegisterUpdateFound(onUpdateNotification)
+	go func() {
+		updateState, err := manager.IPCClientUpdateState()
+		if err == nil {
+			onUpdateNotification(updateState)
+		}
+	}()
+
 	if tray == nil {
 		win.ShowWindow(mtw.Handle(), win.SW_MINIMIZE)
 	}

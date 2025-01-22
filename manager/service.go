@@ -259,6 +259,8 @@ func (service *managerService) Execute(args []string, r <-chan svc.ChangeRequest
 		}()
 	}
 
+	go checkForUpdates()
+
 	var sessionsPointer *windows.WTS_SESSION_INFO
 	var count uint32
 	err = windows.WTSEnumerateSessions(0, 0, 1, &sessionsPointer, &count)

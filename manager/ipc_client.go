@@ -11,6 +11,7 @@ import (
 	"os"
 	"sync"
 
+	"github.com/amnezia-vpn/amneziawg-windows-client/updater"
 	"github.com/amnezia-vpn/amneziawg-windows/conf"
 )
 
@@ -34,6 +35,8 @@ const (
 	TunnelChangeNotificationType NotificationType = iota
 	TunnelsChangeNotificationType
 	ManagerStoppingNotificationType
+	UpdateFoundNotificationType
+	UpdateProgressNotificationType
 )
 
 type MethodType int
@@ -50,6 +53,8 @@ const (
 	CreateMethodType
 	TunnelsMethodType
 	QuitMethodType
+	UpdateStateMethodType
+	UpdateMethodType
 )
 
 var (
@@ -75,6 +80,18 @@ type ManagerStoppingCallback struct {
 }
 
 var managerStoppingCallbacks = make(map[*ManagerStoppingCallback]bool)
+
+type UpdateFoundCallback struct {
+	cb func(updateState UpdateState)
+}
+
+var updateFoundCallbacks = make(map[*UpdateFoundCallback]bool)
+
+type UpdateProgressCallback struct {
+	cb func(dp updater.DownloadProgress)
+}
+
+var updateProgressCallbacks = make(map[*UpdateProgressCallback]bool)
 
 func InitializeIPCClient(reader, writer, events *os.File) {
 	rpcDecoder = gob.NewDecoder(reader)
@@ -127,6 +144,44 @@ func InitializeIPCClient(reader, writer, events *os.File) {
 			case ManagerStoppingNotificationType:
 				for cb := range managerStoppingCallbacks {
 					cb.cb()
+				}
+			case UpdateFoundNotificationType:
+				var state UpdateState
+				err = decoder.Decode(&state)
+				if err != nil {
+					continue
+				}
+				for cb := range updateFoundCallbacks {
+					cb.cb(state)
+				}
+			case UpdateProgressNotificationType:
+				var dp updater.DownloadProgress
+				err = decoder.Decode(&dp.Activity)
+				if err != nil {
+					continue
+				}
+				err = decoder.Decode(&dp.BytesDownloaded)
+				if err != nil {
+					continue
+				}
+				err = decoder.Decode(&dp.BytesTotal)
+				if err != nil {
+					continue
+				}
+				var errStr string
+				err = decoder.Decode(&errStr)
+				if err != nil {
+					continue
+				}
+				if len(errStr) > 0 {
+					dp.Error = errors.New(errStr)
+				}
+				err = decoder.Decode(&dp.Complete)
+				if err != nil {
+					continue
+				}
+				for cb := range updateProgressCallbacks {
+					cb.cb(dp)
 				}
 			}
 		}
@@ -354,6 +409,28 @@ func IPCClientQuit(stopTunnelsOnQuit bool) (alreadyQuit bool, err error) {
 	return
 }
 
+func IPCClientUpdateState() (updateState UpdateState, err error) {
+	rpcMutex.Lock()
+	defer rpcMutex.Unlock()
+
+	err = rpcEncoder.Encode(UpdateStateMethodType)
+	if err != nil {
+		return
+	}
+	err = rpcDecoder.Decode(&updateState)
+	if err != nil {
+		return
+	}
+	return
+}
+
+func IPCClientUpdate() error {
+	rpcMutex.Lock()
+	defer rpcMutex.Unlock()
+
+	return rpcEncoder.Encode(UpdateMethodType)
+}
+
 func IPCClientRegisterTunnelChange(cb func(tunnel *Tunnel, state, globalState TunnelState, err error)) *TunnelChangeCallback {
 	s := &TunnelChangeCallback{cb}
 	tunnelChangeCallbacks[s] = true
@@ -382,4 +459,24 @@ func IPCClientRegisterManagerStopping(cb func()) *ManagerStoppingCallback {
 
 func (cb *ManagerStoppingCallback) Unregister() {
 	delete(managerStoppingCallbacks, cb)
+}
+
+func IPCClientRegisterUpdateFound(cb func(updateState UpdateState)) *UpdateFoundCallback {
+	s := &UpdateFoundCallback{cb}
+	updateFoundCallbacks[s] = true
+	return s
+}
+
+func (cb *UpdateFoundCallback) Unregister() {
+	delete(updateFoundCallbacks, cb)
+}
+
+func IPCClientRegisterUpdateProgress(cb func(dp updater.DownloadProgress)) *UpdateProgressCallback {
+	s := &UpdateProgressCallback{cb}
+	updateProgressCallbacks[s] = true
+	return s
+}
+
+func (cb *UpdateProgressCallback) Unregister() {
+	delete(updateProgressCallbacks, cb)
 }

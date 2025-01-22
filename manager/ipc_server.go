@@ -19,6 +19,7 @@ import (
 	"golang.org/x/sys/windows"
 	"golang.org/x/sys/windows/svc"
 
+	"github.com/amnezia-vpn/amneziawg-windows-client/updater"
 	"github.com/amnezia-vpn/amneziawg-windows/conf"
 	"github.com/amnezia-vpn/amneziawg-windows/services"
 )
@@ -268,6 +269,26 @@ func (s *ManagerService) Quit(stopTunnelsOnQuit bool) (alreadyQuit bool, err err
 	return false, nil
 }
 
+func (s *ManagerService) UpdateState() UpdateState {
+	return updateState
+}
+
+func (s *ManagerService) Update() {
+	if s.elevatedToken == 0 {
+		return
+	}
+	progress := updater.DownloadVerifyAndExecute(uintptr(s.elevatedToken))
+	go func() {
+		for {
+			dp := <-progress
+			IPCServerNotifyUpdateProgress(dp)
+			if dp.Complete || dp.Error != nil {
+				return
+			}
+		}
+	}()
+}
+
 func (s *ManagerService) ServeConn(reader io.Reader, writer io.Writer) {
 	decoder := gob.NewDecoder(reader)
 	encoder := gob.NewEncoder(writer)
@@ -422,6 +443,14 @@ func (s *ManagerService) ServeConn(reader io.Reader, writer io.Writer) {
 			if err != nil {
 				return
 			}
+		case UpdateStateMethodType:
+			updateState := s.UpdateState()
+			err = encoder.Encode(updateState)
+			if err != nil {
+				return
+			}
+		case UpdateMethodType:
+			s.Update()
 		default:
 			return
 		}
@@ -496,6 +525,14 @@ func IPCServerNotifyTunnelChange(name string, state TunnelState, err error) {
 
 func IPCServerNotifyTunnelsChange() {
 	notifyAll(TunnelsChangeNotificationType, false)
+}
+
+func IPCServerNotifyUpdateFound(state UpdateState) {
+	notifyAll(UpdateFoundNotificationType, false, state)
+}
+
+func IPCServerNotifyUpdateProgress(dp updater.DownloadProgress) {
+	notifyAll(UpdateProgressNotificationType, true, dp.Activity, dp.BytesDownloaded, dp.BytesTotal, errToString(dp.Error), dp.Complete)
 }
 
 func IPCServerNotifyManagerStopping() {
