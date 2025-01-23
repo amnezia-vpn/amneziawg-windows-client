@@ -1251,15 +1251,15 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard Update Available",
-            "message": "WireGuard Update Available",
-            "translation": "WireGuard 更新",
+            "id": "AmneziaWG Update Available",
+            "message": "AmneziaWG Update Available",
+            "translation": "AmneziaWG 更新",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "An update to WireGuard is now available. You are advised to update as soon as possible.",
-            "message": "An update to WireGuard is now available. You are advised to update as soon as possible.",
-            "translation": "更新的 WireGuard 已經為您準備好了。\n強烈建議您立即更新 WireGuard。",
+            "id": "An update to AmneziaWG is now available. You are advised to update as soon as possible.",
+            "message": "An update to AmneziaWG is now available. You are advised to update as soon as possible.",
+            "translation": "更新的 AmneziaWG 已經為您準備好了。\n強烈建議您立即更新 AmneziaWG。",
             "translatorComment": "Copied from source."
         },
         {
@@ -1676,9 +1676,9 @@
             ]
         },
         {
-            "id": "An update to WireGuard is available. It is highly advisable to update without delay.",
-            "message": "An update to WireGuard is available. It is highly advisable to update without delay.",
-            "translation": "更新的 WireGuard 已經為您準備好了。\n強烈建議您立即進行更新。",
+            "id": "An update to AmneziaWG is available. It is highly advisable to update without delay.",
+            "message": "An update to AmneziaWG is available. It is highly advisable to update without delay.",
+            "translation": "更新的 AmneziaWG 已經為您準備好了。\n強烈建議您立即進行更新。",
             "translatorComment": "Copied from source."
         },
         {

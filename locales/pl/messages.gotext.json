@@ -1308,15 +1308,15 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard Update Available",
-            "message": "WireGuard Update Available",
-            "translation": "Aktualizacja WireGuard jest dostępna",
+            "id": "AmneziaWG Update Available",
+            "message": "AmneziaWG Update Available",
+            "translation": "Aktualizacja AmneziaWG jest dostępna",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "An update to WireGuard is now available. You are advised to update as soon as possible.",
-            "message": "An update to WireGuard is now available. You are advised to update as soon as possible.",
-            "translation": "Aktualizacja WireGuard jest już dostępna. Zaleca się jak najszybszą aktualizację.",
+            "id": "An update to AmneziaWG is now available. You are advised to update as soon as possible.",
+            "message": "An update to AmneziaWG is now available. You are advised to update as soon as possible.",
+            "translation": "Aktualizacja AmneziaWG jest już dostępna. Zaleca się jak najszybszą aktualizację.",
             "translatorComment": "Copied from source."
         },
         {
@@ -1778,9 +1778,9 @@
             ]
         },
         {
-            "id": "An update to WireGuard is available. It is highly advisable to update without delay.",
-            "message": "An update to WireGuard is available. It is highly advisable to update without delay.",
-            "translation": "Aktualizacja WireGuard jest dostępna. Zaleca się natychmiastową aktualizację.",
+            "id": "An update to AmneziaWG is available. It is highly advisable to update without delay.",
+            "message": "An update to AmneziaWG is available. It is highly advisable to update without delay.",
+            "translation": "Aktualizacja AmneziaWG jest dostępna. Zaleca się natychmiastową aktualizację.",
             "translatorComment": "Copied from source."
         },
         {

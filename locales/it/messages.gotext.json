@@ -1278,15 +1278,15 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard Update Available",
-            "message": "WireGuard Update Available",
-            "translation": "Aggiornamento di WireGuard disponibile",
+            "id": "AmneziaWG Update Available",
+            "message": "AmneziaWG Update Available",
+            "translation": "Aggiornamento di AmneziaWG disponibile",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "An update to WireGuard is now available. You are advised to update as soon as possible.",
-            "message": "An update to WireGuard is now available. You are advised to update as soon as possible.",
-            "translation": "Un aggiornamento di WireGuard è disponibile. Ti consigliamo di aggiornare il prima possibile.",
+            "id": "An update to AmneziaWG is now available. You are advised to update as soon as possible.",
+            "message": "An update to AmneziaWG is now available. You are advised to update as soon as possible.",
+            "translation": "Un aggiornamento di AmneziaWG è disponibile. Ti consigliamo di aggiornare il prima possibile.",
             "translatorComment": "Copied from source."
         },
         {
@@ -1718,9 +1718,9 @@
             ]
         },
         {
-            "id": "An update to WireGuard is available. It is highly advisable to update without delay.",
-            "message": "An update to WireGuard is available. It is highly advisable to update without delay.",
-            "translation": "Un aggiornamento di WireGuard è disponibile. Ti consigliamo vivamente di aggiornare immediatamente.",
+            "id": "An update to AmneziaWG is available. It is highly advisable to update without delay.",
+            "message": "An update to AmneziaWG is available. It is highly advisable to update without delay.",
+            "translation": "Un aggiornamento di AmneziaWG è disponibile. Ti consigliamo vivamente di aggiornare immediatamente.",
             "translatorComment": "Copied from source."
         },
         {

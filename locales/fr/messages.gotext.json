@@ -1278,15 +1278,15 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard Update Available",
-            "message": "WireGuard Update Available",
-            "translation": "WireGuard mise à jour est disponible",
+            "id": "AmneziaWG Update Available",
+            "message": "AmneziaWG Update Available",
+            "translation": "AmneziaWG mise à jour est disponible",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "An update to WireGuard is now available. You are advised to update as soon as possible.",
-            "message": "An update to WireGuard is now available. You are advised to update as soon as possible.",
-            "translation": "Une mise à jour du WireGuard est disponible. Il est conseillé de mettre votre WireGuard à jour dès que possible.",
+            "id": "An update to AmneziaWG is now available. You are advised to update as soon as possible.",
+            "message": "An update to AmneziaWG is now available. You are advised to update as soon as possible.",
+            "translation": "Une mise à jour du AmneziaWG est disponible. Il est conseillé de mettre votre AmneziaWG à jour dès que possible.",
             "translatorComment": "Copied from source."
         },
         {
@@ -1718,9 +1718,9 @@
             ]
         },
         {
-            "id": "An update to WireGuard is available. It is highly advisable to update without delay.",
-            "message": "An update to WireGuard is available. It is highly advisable to update without delay.",
-            "translation": "Une mise à jour du WireGuard est disponible. Il est fortement conseillé de metter votre WireGuard à jour sans délai.",
+            "id": "An update to AmneziaWG is available. It is highly advisable to update without delay.",
+            "message": "An update to AmneziaWG is available. It is highly advisable to update without delay.",
+            "translation": "Une mise à jour du AmneziaWG est disponible. Il est fortement conseillé de metter votre AmneziaWG à jour sans délai.",
             "translatorComment": "Copied from source."
         },
         {

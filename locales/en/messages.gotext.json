@@ -1351,16 +1351,16 @@
             "fuzzy": true
         },
         {
-            "id": "WireGuard Update Available",
-            "message": "WireGuard Update Available",
-            "translation": "WireGuard Update Available",
+            "id": "AmneziaWG Update Available",
+            "message": "AmneziaWG Update Available",
+            "translation": "AmneziaWG Update Available",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
         {
-            "id": "An update to WireGuard is now available. You are advised to update as soon as possible.",
-            "message": "An update to WireGuard is now available. You are advised to update as soon as possible.",
-            "translation": "An update to WireGuard is now available. You are advised to update as soon as possible.",
+            "id": "An update to AmneziaWG is now available. You are advised to update as soon as possible.",
+            "message": "An update to AmneziaWG is now available. You are advised to update as soon as possible.",
+            "translation": "An update to AmneziaWG is now available. You are advised to update as soon as possible.",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1816,9 +1816,9 @@
             "fuzzy": true
         },
         {
-            "id": "An update to WireGuard is available. It is highly advisable to update without delay.",
-            "message": "An update to WireGuard is available. It is highly advisable to update without delay.",
-            "translation": "An update to WireGuard is available. It is highly advisable to update without delay.",
+            "id": "An update to AmneziaWG is available. It is highly advisable to update without delay.",
+            "message": "An update to AmneziaWG is available. It is highly advisable to update without delay.",
+            "translation": "An update to AmneziaWG is available. It is highly advisable to update without delay.",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },

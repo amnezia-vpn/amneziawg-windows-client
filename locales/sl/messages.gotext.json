@@ -1308,15 +1308,15 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard Update Available",
-            "message": "WireGuard Update Available",
-            "translation": "Posodobitev WireGuarda je na voljo",
+            "id": "AmneziaWG Update Available",
+            "message": "AmneziaWG Update Available",
+            "translation": "Posodobitev AmneziaWGa je na voljo",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "An update to WireGuard is now available. You are advised to update as soon as possible.",
-            "message": "An update to WireGuard is now available. You are advised to update as soon as possible.",
-            "translation": "Posodobitev WireGuarda je na voljo. Svetujemo posodobitev čim prej.",
+            "id": "An update to AmneziaWG is now available. You are advised to update as soon as possible.",
+            "message": "An update to AmneziaWG is now available. You are advised to update as soon as possible.",
+            "translation": "Posodobitev AmneziaWGa je na voljo. Svetujemo posodobitev čim prej.",
             "translatorComment": "Copied from source."
         },
         {
@@ -1778,9 +1778,9 @@
             ]
         },
         {
-            "id": "An update to WireGuard is available. It is highly advisable to update without delay.",
-            "message": "An update to WireGuard is available. It is highly advisable to update without delay.",
-            "translation": "Posodobitev WireGuarda je na voljo. Zelo priporočamo posodobitev brez odlašanja.",
+            "id": "An update to AmneziaWG is available. It is highly advisable to update without delay.",
+            "message": "An update to AmneziaWG is available. It is highly advisable to update without delay.",
+            "translation": "Posodobitev AmneziaWG je na voljo. Zelo priporočamo posodobitev brez odlašanja.",
             "translatorComment": "Copied from source."
         },
         {

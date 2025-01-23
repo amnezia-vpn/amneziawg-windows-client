@@ -342,15 +342,15 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard Update Available",
-            "message": "WireGuard Update Available",
-            "translation": "WireGuard päivitys saatavilla",
+            "id": "AmneziaWG Update Available",
+            "message": "AmneziaWG Update Available",
+            "translation": "AmneziaWG päivitys saatavilla",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "An update to WireGuard is now available. You are advised to update as soon as possible.",
-            "message": "An update to WireGuard is now available. You are advised to update as soon as possible.",
-            "translation": "WireGuardin päivitys on nyt saatavilla. Sinua kehotetaan päivittämään mahdollisimman pian.",
+            "id": "An update to AmneziaWG is now available. You are advised to update as soon as possible.",
+            "message": "An update to AmneziaWG is now available. You are advised to update as soon as possible.",
+            "translation": "AmneziaWGin päivitys on nyt saatavilla. Sinua kehotetaan päivittämään mahdollisimman pian.",
             "translatorComment": "Copied from source."
         },
         {

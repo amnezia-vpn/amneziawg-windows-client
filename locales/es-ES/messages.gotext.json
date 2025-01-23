@@ -758,15 +758,15 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard Update Available",
-            "message": "WireGuard Update Available",
-            "translation": "Actualización de WireGuard disponible",
+            "id": "AmneziaWG Update Available",
+            "message": "AmneziaWG Update Available",
+            "translation": "Actualización de AmneziaWG disponible",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "An update to WireGuard is now available. You are advised to update as soon as possible.",
-            "message": "An update to WireGuard is now available. You are advised to update as soon as possible.",
-            "translation": "Ya está disponible una actualización de WireGuard. Se recomienda actualizar lo antes posible.",
+            "id": "An update to AmneziaWG is now available. You are advised to update as soon as possible.",
+            "message": "An update to AmneziaWG is now available. You are advised to update as soon as possible.",
+            "translation": "Ya está disponible una actualización de AmneziaWG. Se recomienda actualizar lo antes posible.",
             "translatorComment": "Copied from source."
         },
         {

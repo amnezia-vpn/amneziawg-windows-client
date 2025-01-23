@@ -359,7 +359,7 @@ func (tray *Tray) UpdateFound() {
 
 	showUpdateBalloon := func() {
 		icon, _ := loadShieldIcon(128)
-		tray.ShowCustom(l18n.Sprintf("WireGuard Update Available"), l18n.Sprintf("An update to WireGuard is now available. You are advised to update as soon as possible."), icon)
+		tray.ShowCustom(l18n.Sprintf("AmneziaWG Update Available"), l18n.Sprintf("An update to AmneziaWG is now available. You are advised to update as soon as possible."), icon)
 	}
 
 	timeSinceStart := time.Now().Sub(startTime)
