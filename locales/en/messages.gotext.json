@@ -1372,6 +1372,20 @@
             "fuzzy": true
         },
         {
+            "id": "Ensure that you obtained the configuration file from a trusted source.",
+            "message": "Ensure that you obtained the configuration file from a trusted source.",
+            "translation": "Ensure that you obtained the configuration file from a trusted source.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Official Amnezia services are available only at amnezia.org.",
+            "message": "Official Amnezia services are available only at amnezia.org.",
+            "translation": "Official Amnezia services are available only at amnezia.org.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "\u0026Edit",
             "message": "\u0026Edit",
             "translation": "\u0026Edit",
