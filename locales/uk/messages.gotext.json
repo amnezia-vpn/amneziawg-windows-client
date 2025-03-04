@@ -60,9 +60,9 @@
             ]
         },
         {
-            "id": "You must use the native version of WireGuard on this computer.",
-            "message": "You must use the native version of WireGuard on this computer.",
-            "translation": "Ви повинні використовувати нативну версію WireGuard на цьому комп'ютері.",
+            "id": "You must use the native version of AmneziaWG on this computer.",
+            "message": "You must use the native version of AmneziaWG on this computer.",
+            "translation": "Ви повинні використовувати нативну версію AmneziaWG на цьому комп'ютері.",
             "translatorComment": "Copied from source."
         },
         {
@@ -82,9 +82,9 @@
             ]
         },
         {
-            "id": "WireGuard may only be used by users who are a member of the Builtin {AdminGroupName} group.",
-            "message": "WireGuard may only be used by users who are a member of the Builtin {AdminGroupName} group.",
-            "translation": "WireGuard може бути використаний тільки користувачами, які є членами вбудованих {AdminGroupName} груп.",
+            "id": "AmneziaWG may only be used by users who are a member of the Builtin {AdminGroupName} group.",
+            "message": "AmneziaWG may only be used by users who are a member of the Builtin {AdminGroupName} group.",
+            "translation": "AmneziaWG може бути використаний тільки користувачами, які є членами вбудованих {AdminGroupName} груп.",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -98,9 +98,9 @@
             ]
         },
         {
-            "id": "WireGuard is running, but the UI is only accessible from desktops of the Builtin {AdminGroupName} group.",
-            "message": "WireGuard is running, but the UI is only accessible from desktops of the Builtin {AdminGroupName} group.",
-            "translation": "WireGuard запущено, але UI доступний лише з комп\"ютерів вбудованої {AdminGroupName} групи.",
+            "id": "AmneziaWG is running, but the UI is only accessible from desktops of the Builtin {AdminGroupName} group.",
+            "message": "AmneziaWG is running, but the UI is only accessible from desktops of the Builtin {AdminGroupName} group.",
+            "translation": "AmneziaWG запущено, але UI доступний лише з комп\"ютерів вбудованої {AdminGroupName} групи.",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -114,9 +114,9 @@
             ]
         },
         {
-            "id": "WireGuard system tray icon did not appear after 30 seconds.",
-            "message": "WireGuard system tray icon did not appear after 30 seconds.",
-            "translation": "Значок системи WireGuard не з'явився через 30 секунд.",
+            "id": "AmneziaWG system tray icon did not appear after 30 seconds.",
+            "message": "AmneziaWG system tray icon did not appear after 30 seconds.",
+            "translation": "Значок системи AmneziaWG не з'явився через 30 секунд.",
             "translatorComment": "Copied from source."
         },
         {
@@ -434,15 +434,15 @@
             "comment": "Text to insert when combining units of a measure - most languages will translate ‘[UnitSeparator]’ into ‘ ’ (space) to produce lists like ‘2 minuti 30 sekund’, or empty string ‘’ to produce ‘2分30秒’."
         },
         {
-            "id": "About WireGuard",
-            "message": "About WireGuard",
-            "translation": "Про WireGuard",
+            "id": "About AmneziaWG",
+            "message": "About AmneziaWG",
+            "translation": "Про AmneziaWG",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard logo image",
-            "message": "WireGuard logo image",
-            "translation": "Зображення логотипу WireGuard",
+            "id": "AmneziaWG logo image",
+            "message": "AmneziaWG logo image",
+            "translation": "Зображення логотипу AmneziaWG",
             "translatorComment": "Copied from source."
         },
         {

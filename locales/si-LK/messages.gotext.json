@@ -362,8 +362,8 @@
             "comment": "Text to insert when combining units of a measure - most languages will translate ‘[UnitSeparator]’ into ‘ ’ (space) to produce lists like ‘2 minuti 30 sekund’, or empty string ‘’ to produce ‘2分30秒’."
         },
         {
-            "id": "About WireGuard",
-            "message": "About WireGuard",
+            "id": "About AmneziaWG",
+            "message": "About AmneziaWG",
             "translation": "වයර්ගාඩ් පිළිබඳව",
             "translatorComment": "Copied from source."
         },
@@ -540,8 +540,8 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "&About WireGuard…",
-            "message": "&About WireGuard…",
+            "id": "&About AmneziaWG…",
+            "message": "&About AmneziaWG…",
             "translation": "&වයර්ගාඩ් පිළිබඳව…",
             "translatorComment": "Copied from source."
         },
@@ -562,8 +562,8 @@
             ]
         },
         {
-            "id": "Unable to wait for WireGuard window to appear: {Err}",
-            "message": "Unable to wait for WireGuard window to appear: {Err}",
+            "id": "Unable to wait for AmneziaWG window to appear: {Err}",
+            "message": "Unable to wait for AmneziaWG window to appear: {Err}",
             "translation": "වයර්ගාඩ් කවුළුව පෙනෙන තෙක් රැඳීසිටිය නොහැකිය: {Err}",
             "translatorComment": "Copied from source.",
             "placeholders": [
@@ -590,8 +590,8 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard Activated",
-            "message": "WireGuard Activated",
+            "id": "AmneziaWG Activated",
+            "message": "AmneziaWG Activated",
             "translation": "වයර්ගාඩ් ක්‍රියාත්මකයි",
             "translatorComment": "Copied from source."
         },
@@ -666,8 +666,8 @@
             ]
         },
         {
-            "id": "Error Exiting WireGuard",
-            "message": "Error Exiting WireGuard",
+            "id": "Error Exiting AmneziaWG",
+            "message": "Error Exiting AmneziaWG",
             "translation": "වයර්ගාඩ් පිටවීමේදී දෝෂයකි",
             "translatorComment": "Copied from source."
         },
