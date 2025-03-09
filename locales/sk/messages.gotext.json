@@ -60,9 +60,9 @@
             ]
         },
         {
-            "id": "You must use the native version of WireGuard on this computer.",
-            "message": "You must use the native version of WireGuard on this computer.",
-            "translation": "V tomto počítači musíte používať pôvodnú verziu programu WireGuard.",
+            "id": "You must use the native version of AmneziaWG on this computer.",
+            "message": "You must use the native version of AmneziaWG on this computer.",
+            "translation": "V tomto počítači musíte používať pôvodnú verziu programu AmneziaWG.",
             "translatorComment": "Copied from source."
         },
         {
@@ -82,9 +82,9 @@
             ]
         },
         {
-            "id": "WireGuard may only be used by users who are a member of the Builtin {AdminGroupName} group.",
-            "message": "WireGuard may only be used by users who are a member of the Builtin {AdminGroupName} group.",
-            "translation": "WireGuard môžu používať iba členovia Builtin skupiny {AdminGroupName}.",
+            "id": "AmneziaWG may only be used by users who are a member of the Builtin {AdminGroupName} group.",
+            "message": "AmneziaWG may only be used by users who are a member of the Builtin {AdminGroupName} group.",
+            "translation": "AmneziaWG môžu používať iba členovia Builtin skupiny {AdminGroupName}.",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -98,9 +98,9 @@
             ]
         },
         {
-            "id": "WireGuard is running, but the UI is only accessible from desktops of the Builtin {AdminGroupName} group.",
-            "message": "WireGuard is running, but the UI is only accessible from desktops of the Builtin {AdminGroupName} group.",
-            "translation": "WireGuard je spustený, ale používateľské rozhranie je prístupné iba členom Builtin skupiny {AdminGroupName}.",
+            "id": "AmneziaWG is running, but the UI is only accessible from desktops of the Builtin {AdminGroupName} group.",
+            "message": "AmneziaWG is running, but the UI is only accessible from desktops of the Builtin {AdminGroupName} group.",
+            "translation": "AmneziaWG je spustený, ale používateľské rozhranie je prístupné iba členom Builtin skupiny {AdminGroupName}.",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -114,9 +114,9 @@
             ]
         },
         {
-            "id": "WireGuard system tray icon did not appear after 30 seconds.",
-            "message": "WireGuard system tray icon did not appear after 30 seconds.",
-            "translation": "WireGuard ikona sa ani po 30 sekundách neobjavila na systémovej lište.",
+            "id": "AmneziaWG system tray icon did not appear after 30 seconds.",
+            "message": "AmneziaWG system tray icon did not appear after 30 seconds.",
+            "translation": "AmneziaWG ikona sa ani po 30 sekundách neobjavila na systémovej lište.",
             "translatorComment": "Copied from source."
         },
         {
@@ -604,15 +604,15 @@
             "comment": "Text to insert when combining units of a measure - most languages will translate ‘[UnitSeparator]’ into ‘ ’ (space) to produce lists like ‘2 minuti 30 sekund’, or empty string ‘’ to produce ‘2分30秒’."
         },
         {
-            "id": "About WireGuard",
-            "message": "About WireGuard",
-            "translation": "O WireGuard",
+            "id": "About AmneziaWG",
+            "message": "About AmneziaWG",
+            "translation": "O AmneziaWG",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard logo image",
-            "message": "WireGuard logo image",
-            "translation": "Obrázok WireGuard loga",
+            "id": "AmneziaWG logo image",
+            "message": "AmneziaWG logo image",
+            "translation": "Obrázok AmneziaWG loga",
             "translatorComment": "Copied from source."
         },
         {
@@ -1096,9 +1096,9 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "&About WireGuard…",
-            "message": "&About WireGuard…",
-            "translation": "&O WireGuard…",
+            "id": "&About AmneziaWG…",
+            "message": "&About AmneziaWG…",
+            "translation": "&O AmneziaWG…",
             "translatorComment": "Copied from source."
         },
         {
@@ -1140,15 +1140,15 @@
             ]
         },
         {
-            "id": "WireGuard Detection Error",
-            "message": "WireGuard Detection Error",
-            "translation": "Chyba detekcie WireGuard",
+            "id": "AmneziaWG Detection Error",
+            "message": "AmneziaWG Detection Error",
+            "translation": "Chyba detekcie AmneziaWG",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "Unable to wait for WireGuard window to appear: {Err}",
-            "message": "Unable to wait for WireGuard window to appear: {Err}",
-            "translation": "Nie je možné čakať na zobrazenie WireGuard okna: {Err}",
+            "id": "Unable to wait for AmneziaWG window to appear: {Err}",
+            "message": "Unable to wait for AmneziaWG window to appear: {Err}",
+            "translation": "Nie je možné čakať na zobrazenie AmneziaWG okna: {Err}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -1162,9 +1162,9 @@
             ]
         },
         {
-            "id": "WireGuard: Deactivated",
-            "message": "WireGuard: Deactivated",
-            "translation": "WireGuard: deaktivovaný",
+            "id": "AmneziaWG: Deactivated",
+            "message": "AmneziaWG: Deactivated",
+            "translation": "AmneziaWG: deaktivovaný",
             "translatorComment": "Copied from source."
         },
         {
@@ -1204,9 +1204,9 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard Activated",
-            "message": "WireGuard Activated",
-            "translation": "WireGuard je aktivovaný",
+            "id": "AmneziaWG Activated",
+            "message": "AmneziaWG Activated",
+            "translation": "AmneziaWG je aktivovaný",
             "translatorComment": "Copied from source."
         },
         {
@@ -1226,9 +1226,9 @@
             ]
         },
         {
-            "id": "WireGuard Deactivated",
-            "message": "WireGuard Deactivated",
-            "translation": "WireGuard je deaktivovaný",
+            "id": "AmneziaWG Deactivated",
+            "message": "AmneziaWG Deactivated",
+            "translation": "AmneziaWG je deaktivovaný",
             "translatorComment": "Copied from source."
         },
         {
@@ -1248,15 +1248,15 @@
             ]
         },
         {
-            "id": "WireGuard Tunnel Error",
-            "message": "WireGuard Tunnel Error",
-            "translation": "Chyba WireGuard tunelu",
+            "id": "AmneziaWG Tunnel Error",
+            "message": "AmneziaWG Tunnel Error",
+            "translation": "Chyba AmneziaWG tunelu",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard: {TextForStateglobalState_true}",
-            "message": "WireGuard: {TextForStateglobalState_true}",
-            "translation": "WireGuard: {TextForStateglobalState_true}",
+            "id": "AmneziaWG: {TextForStateglobalState_true}",
+            "message": "AmneziaWG: {TextForStateglobalState_true}",
+            "translation": "AmneziaWG: {TextForStateglobalState_true}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -1756,15 +1756,15 @@
             ]
         },
         {
-            "id": "Error Exiting WireGuard",
-            "message": "Error Exiting WireGuard",
-            "translation": "Chyba ukončenia WireGuard",
+            "id": "Error Exiting AmneziaWG",
+            "message": "Error Exiting AmneziaWG",
+            "translation": "Chyba ukončenia AmneziaWG",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "Unable to exit service due to: {Err}. You may want to stop WireGuard from the service manager.",
-            "message": "Unable to exit service due to: {Err}. You may want to stop WireGuard from the service manager.",
-            "translation": "Nie je možné ukončiť služby z dôvodu: {Err}. Skúste zastaviť WireGuard v správcovi služieb.",
+            "id": "Unable to exit service due to: {Err}. You may want to stop AmneziaWG from the service manager.",
+            "message": "Unable to exit service due to: {Err}. You may want to stop AmneziaWG from the service manager.",
+            "translation": "Nie je možné ukončiť služby z dôvodu: {Err}. Skúste zastaviť AmneziaWG v správcovi služieb.",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {

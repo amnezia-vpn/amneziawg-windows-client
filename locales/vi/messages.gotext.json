@@ -173,15 +173,15 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "About WireGuard",
-            "message": "About WireGuard",
-            "translation": "Thông tin về WireGuard",
+            "id": "About AmneziaWG",
+            "message": "About AmneziaWG",
+            "translation": "Thông tin về AmneziaWG",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard logo image",
-            "message": "WireGuard logo image",
-            "translation": "Logo WireGuard",
+            "id": "AmneziaWG logo image",
+            "message": "AmneziaWG logo image",
+            "translation": "Logo AmneziaWG",
             "translatorComment": "Copied from source."
         },
         {

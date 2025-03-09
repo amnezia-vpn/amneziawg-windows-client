@@ -246,9 +246,9 @@
             "comment": "Text to insert when combining units of a measure - most languages will translate ‘[UnitSeparator]’ into ‘ ’ (space) to produce lists like ‘2 minuti 30 sekund’, or empty string ‘’ to produce ‘2分30秒’."
         },
         {
-            "id": "About WireGuard",
-            "message": "About WireGuard",
-            "translation": "درباره WireGuard",
+            "id": "About AmneziaWG",
+            "message": "About AmneziaWG",
+            "translation": "درباره AmneziaWG",
             "translatorComment": "Copied from source."
         },
         {
@@ -508,9 +508,9 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "&About WireGuard…",
-            "message": "&About WireGuard…",
-            "translation": "&درباره WireGuard…",
+            "id": "&About AmneziaWG…",
+            "message": "&About AmneziaWG…",
+            "translation": "&درباره AmneziaWG…",
             "translatorComment": "Copied from source."
         },
         {
@@ -538,9 +538,9 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard Activated",
-            "message": "WireGuard Activated",
-            "translation": "WireGuard فعال‌شد",
+            "id": "AmneziaWG Activated",
+            "message": "AmneziaWG Activated",
+            "translation": "AmneziaWG فعال‌شد",
             "translatorComment": "Copied from source."
         },
         {
@@ -560,15 +560,15 @@
             ]
         },
         {
-            "id": "WireGuard Deactivated",
-            "message": "WireGuard Deactivated",
-            "translation": "WireGuard غیرفعال شد",
+            "id": "AmneziaWG Deactivated",
+            "message": "AmneziaWG Deactivated",
+            "translation": "AmneziaWG غیرفعال شد",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard Tunnel Error",
-            "message": "WireGuard Tunnel Error",
-            "translation": "خطای تونل WireGuard",
+            "id": "AmneziaWG Tunnel Error",
+            "message": "AmneziaWG Tunnel Error",
+            "translation": "خطای تونل AmneziaWG",
             "translatorComment": "Copied from source."
         },
         {
@@ -792,9 +792,9 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "Error Exiting WireGuard",
-            "message": "Error Exiting WireGuard",
-            "translation": "خطا در هنگام خارج شدن از WireGuard",
+            "id": "Error Exiting AmneziaWG",
+            "message": "Error Exiting AmneziaWG",
+            "translation": "خطا در هنگام خارج شدن از AmneziaWG",
             "translatorComment": "Copied from source."
         },
         {

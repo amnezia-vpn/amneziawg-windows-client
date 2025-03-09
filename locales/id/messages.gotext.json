@@ -76,9 +76,9 @@
             ]
         },
         {
-            "id": "WireGuard may only be used by users who are a member of the Builtin {AdminGroupName} group.",
-            "message": "WireGuard may only be used by users who are a member of the Builtin {AdminGroupName} group.",
-            "translation": "WireGuard hanya dapat digunakan oleh pengguna yang merupakan anggota grup Bawaan {AdminGroupName}.",
+            "id": "AmneziaWG may only be used by users who are a member of the Builtin {AdminGroupName} group.",
+            "message": "AmneziaWG may only be used by users who are a member of the Builtin {AdminGroupName} group.",
+            "translation": "AmneziaWG hanya dapat digunakan oleh pengguna yang merupakan anggota grup Bawaan {AdminGroupName}.",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -92,9 +92,9 @@
             ]
         },
         {
-            "id": "WireGuard is running, but the UI is only accessible from desktops of the Builtin {AdminGroupName} group.",
-            "message": "WireGuard is running, but the UI is only accessible from desktops of the Builtin {AdminGroupName} group.",
-            "translation": "WireGuard sedang berjalan, tetapi UI hanya dapat diakses dari desktop grup Bawaan {AdminGroupName}.",
+            "id": "AmneziaWG is running, but the UI is only accessible from desktops of the Builtin {AdminGroupName} group.",
+            "message": "AmneziaWG is running, but the UI is only accessible from desktops of the Builtin {AdminGroupName} group.",
+            "translation": "AmneziaWG sedang berjalan, tetapi UI hanya dapat diakses dari desktop grup Bawaan {AdminGroupName}.",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -108,9 +108,9 @@
             ]
         },
         {
-            "id": "WireGuard system tray icon did not appear after 30 seconds.",
-            "message": "WireGuard system tray icon did not appear after 30 seconds.",
-            "translation": "Ikon sistem WireGuard tidak muncul setelah 30 detik.",
+            "id": "AmneziaWG system tray icon did not appear after 30 seconds.",
+            "message": "AmneziaWG system tray icon did not appear after 30 seconds.",
+            "translation": "Ikon sistem AmneziaWG tidak muncul setelah 30 detik.",
             "translatorComment": "Copied from source."
         },
         {
@@ -541,9 +541,9 @@
             "comment": "Text to insert between items when listing - most western languages will translate ‘[EnumerationSeparator]’ into ‘, ’ to produce lists like ‘apple, orange, strawberry’. Eastern languages might translate into ‘、’ to produce lists like ‘リンゴ、オレンジ、イチゴ’."
         },
         {
-            "id": "About WireGuard",
-            "message": "About WireGuard",
-            "translation": "Tentang WireGuard",
+            "id": "About AmneziaWG",
+            "message": "About AmneziaWG",
+            "translation": "Tentang AmneziaWG",
             "translatorComment": "Copied from source."
         },
         {
@@ -643,9 +643,9 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "&About WireGuard…",
-            "message": "&About WireGuard…",
-            "translation": "&Tentang WireGuard…",
+            "id": "&About AmneziaWG…",
+            "message": "&About AmneziaWG…",
+            "translation": "&Tentang AmneziaWG…",
             "translatorComment": "Copied from source."
         },
         {
@@ -687,15 +687,15 @@
             ]
         },
         {
-            "id": "WireGuard Detection Error",
-            "message": "WireGuard Detection Error",
-            "translation": "Deteksi eror WireGuard",
+            "id": "AmneziaWG Detection Error",
+            "message": "AmneziaWG Detection Error",
+            "translation": "Deteksi eror AmneziaWG",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "Unable to wait for WireGuard window to appear: {Err}",
-            "message": "Unable to wait for WireGuard window to appear: {Err}",
-            "translation": "Tidak dapat menunggu jendela WireGuard muncul: {Err}",
+            "id": "Unable to wait for AmneziaWG window to appear: {Err}",
+            "message": "Unable to wait for AmneziaWG window to appear: {Err}",
+            "translation": "Tidak dapat menunggu jendela AmneziaWG muncul: {Err}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -709,9 +709,9 @@
             ]
         },
         {
-            "id": "WireGuard: Deactivated",
-            "message": "WireGuard: Deactivated",
-            "translation": "WireGuard: Dinonaktifkan",
+            "id": "AmneziaWG: Deactivated",
+            "message": "AmneziaWG: Deactivated",
+            "translation": "AmneziaWG: Dinonaktifkan",
             "translatorComment": "Copied from source."
         },
         {
@@ -745,15 +745,15 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard Tunnel Error",
-            "message": "WireGuard Tunnel Error",
-            "translation": "Wireguard Tunnel Eror",
+            "id": "AmneziaWG Tunnel Error",
+            "message": "AmneziaWG Tunnel Error",
+            "translation": "AmneziaWG Tunnel Eror",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard: {TextForStateglobalState_true}",
-            "message": "WireGuard: {TextForStateglobalState_true}",
-            "translation": "WireGuard: {TextForStateglobalState_true}",
+            "id": "AmneziaWG: {TextForStateglobalState_true}",
+            "message": "AmneziaWG: {TextForStateglobalState_true}",
+            "translation": "AmneziaWG: {TextForStateglobalState_true}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {

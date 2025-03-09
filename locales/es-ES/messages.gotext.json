@@ -338,15 +338,15 @@
             ]
         },
         {
-            "id": "About WireGuard",
-            "message": "About WireGuard",
-            "translation": "Acerca de WireGuard",
+            "id": "About AmneziaWG",
+            "message": "About AmneziaWG",
+            "translation": "Acerca de AmneziaWG",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard logo image",
-            "message": "WireGuard logo image",
-            "translation": "Imagen del logo de WireGuard",
+            "id": "AmneziaWG logo image",
+            "message": "AmneziaWG logo image",
+            "translation": "Imagen del logo de AmneziaWG",
             "translatorComment": "Copied from source."
         },
         {
@@ -628,9 +628,9 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "&About WireGuard…",
-            "message": "&About WireGuard…",
-            "translation": "&Acerca de WireGuard…",
+            "id": "&About AmneziaWG…",
+            "message": "&About AmneziaWG…",
+            "translation": "&Acerca de AmneziaWG…",
             "translatorComment": "Copied from source."
         },
         {
@@ -656,9 +656,9 @@
             ]
         },
         {
-            "id": "WireGuard: Deactivated",
-            "message": "WireGuard: Deactivated",
-            "translation": "WireGuard: Desactivado",
+            "id": "AmneziaWG: Deactivated",
+            "message": "AmneziaWG: Deactivated",
+            "translation": "AmneziaWG: Desactivado",
             "translatorComment": "Copied from source."
         },
         {
@@ -686,27 +686,27 @@
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard Activated",
-            "message": "WireGuard Activated",
-            "translation": "WireGuard Activado",
+            "id": "AmneziaWG Activated",
+            "message": "AmneziaWG Activated",
+            "translation": "AmneziaWG Activado",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard Deactivated",
-            "message": "WireGuard Deactivated",
-            "translation": "WireGuard: Desactivado",
+            "id": "AmneziaWG Deactivated",
+            "message": "AmneziaWG Deactivated",
+            "translation": "AmneziaWG: Desactivado",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard Tunnel Error",
-            "message": "WireGuard Tunnel Error",
-            "translation": "Error en el túnel de WireGuard",
+            "id": "AmneziaWG Tunnel Error",
+            "message": "AmneziaWG Tunnel Error",
+            "translation": "Error en el túnel de AmneziaWG",
             "translatorComment": "Copied from source."
         },
         {
-            "id": "WireGuard: {TextForStateglobalState_true}",
-            "message": "WireGuard: {TextForStateglobalState_true}",
-            "translation": "WireGuard: {TextForStateglobalState_true}",
+            "id": "AmneziaWG: {TextForStateglobalState_true}",
+            "message": "AmneziaWG: {TextForStateglobalState_true}",
+            "translation": "AmneziaWG: {TextForStateglobalState_true}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
