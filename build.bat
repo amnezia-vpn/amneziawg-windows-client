@@ -49,7 +49,7 @@ if exist .deps\prepared goto :render
 	if "%SigningCertificate%"=="" goto :success
 	if "%TimestampServer%"=="" goto :success
 	echo [+] Signing
-        signtool sign /sha1 "%SigningCertificate%" /fd sha256 /tr "%TimestampServer%" /td sha256 /d WireGuard x86\amneziawg.exe x86\awg.exe amd64\amneziawg.exe amd64\awg.exe arm64\amneziawg.exe arm64\awg.exe || goto :error
+	signtool sign /sha1 "%SigningCertificate%" /fd sha256 /tr "%TimestampServer%" /td sha256 /d WireGuard x86\amneziawg.exe x86\awg.exe amd64\amneziawg.exe amd64\awg.exe arm64\amneziawg.exe arm64\awg.exe || goto :error
 
 :success
 	echo [+] Success. Launch amneziawg.exe.
@@ -78,7 +78,7 @@ if exist .deps\prepared goto :render
 		del .deps\src\*.exe .deps\src\*.o .deps\src\wincompat\*.o .deps\src\wincompat\*.lib 2> NUL
 		set LDFLAGS=-s
 		make --no-print-directory -C .deps\src PLATFORM=windows CC=%~2-w64-mingw32-gcc WINDRES=%~2-w64-mingw32-windres V=1 RUNSTATEDIR= SYSTEMDUNITDIR= -j%NUMBER_OF_PROCESSORS% || exit /b 1
-                move /Y .deps\src\wg.exe "%~1\awg.exe" > NUL || exit /b 1
+		move /Y .deps\src\wg.exe "%~1\awg.exe" > NUL || exit /b 1
 	)
 	if not exist "%~1\wintun.dll" (
 		copy /Y ".deps\wintun\bin\%~1\wintun.dll" "%~1\wintun.dll" > NUL || exit /b 1
