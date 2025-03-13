@@ -8,9 +8,14 @@ package l18n
 import (
 	"sync"
 
+	"github.com/amnezia-vpn/amneziawg-windows-client/services"
 	"golang.org/x/sys/windows"
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
+)
+
+const (
+	LanguageUserKey = "Language"
 )
 
 var (
@@ -35,6 +40,14 @@ func prn() *message.Printer {
 
 // lang returns the user preferred UI language we have most confident translation in the default catalog available.
 func lang() (tag language.Tag) {
+	keyString, res := services.UserKeyString(LanguageUserKey)
+	if res {
+		keyTag := message.MatchLanguage(keyString)
+		if keyTag.String() == keyString {
+			tag = keyTag
+			return
+		}
+	}
 	tag = language.English
 	confidence := language.No
 	languages, err := windows.GetUserPreferredUILanguages(windows.MUI_LANGUAGE_NAME)

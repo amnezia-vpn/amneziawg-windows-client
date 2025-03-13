@@ -18,6 +18,7 @@ In addition to this [`README.md`](README.md), the following documents are also a
 - [`buildrun.md`](docs/buildrun.md) &ndash; Instructions on building, localizing, running, and developing for this repository.
 - [`enterprise.md`](docs/enterprise.md) &ndash; A summary of various features and tips for making the application usable in enterprise settings.
 - [`netquirk.md`](docs/netquirk.md) &ndash; A description of various networking quirks and "kill-switch" semantics.
+- [`userregistry.md`](docs/userregistry.md) &ndash; A list of registry keys settable by the user for changing the behavior of the application.
 
 ## License
 
