@@ -4,7 +4,7 @@ rem Copyright (C) 2019-2022 WireGuard LLC. All Rights Reserved.
 
 setlocal enabledelayedexpansion
 set BUILDDIR=%~dp0
-set PATH=%BUILDDIR%.deps\llvm-mingw-20231128-ucrt-x86_64\bin;%BUILDDIR%.deps\go\bin;%BUILDDIR%.deps;%PATH%
+set PATH=%BUILDDIR%.deps\llvm-mingw-20231128-ucrt-x86_64\bin;%BUILDDIR%.deps\go-legacy-win7\bin;%BUILDDIR%.deps;%PATH%
 set PATHEXT=.exe
 cd /d %BUILDDIR% || exit /b 1
 
@@ -13,7 +13,7 @@ if exist .deps\prepared goto :render
 	rmdir /s /q .deps 2> NUL
 	mkdir .deps || goto :error
 	cd .deps || goto :error
-	call :download go.zip https://go.dev/dl/go1.22.12.windows-amd64.zip 2ceda04074eac51f4b0b85a9fcca38bcd49daee24bed9ea1f29958a8e22673a6 || goto :error
+	call :download go-legacy-win7.zip https://github.com/thongtech/go-legacy-win7/releases/download/v1.24.0-1/go-legacy-win7-1.24.0-1.windows_amd64.zip 6767df9ab0140b2c9a302af2dad338f6ba7aae6674feb004483e9a155e41e172 || goto :error
 	call :download llvm-mingw-20231128-ucrt-x86_64.zip https://github.com/mstorsjo/llvm-mingw/releases/download/20231128/llvm-mingw-20231128-ucrt-x86_64.zip 7a344dafa6942de2c1f4643b3eb5c5ce5317fbab671a887e4d39f326b331798f || goto :error
 	rem Mirror of https://imagemagick.org/download/binaries/ImageMagick-7.0.8-42-portable-Q16-x64.zip
 	call :download imagemagick.zip https://download.wireguard.com/windows-toolchain/distfiles/ImageMagick-7.0.8-42-portable-Q16-x64.zip 584e069f56456ce7dde40220948ff9568ac810688c892c5dfb7f6db902aa05aa "convert.exe colors.xml delegates.xml" || goto :error
@@ -35,7 +35,7 @@ if exist .deps\prepared goto :render
 	set GOOS=windows
 	set GOARM=7
 	set GOPATH=%BUILDDIR%.deps\gopath
-	set GOROOT=%BUILDDIR%.deps\go
+	set GOROOT=%BUILDDIR%.deps\go-legacy-win7
 	if "%GoGenerate%"=="yes" (
 		echo [+] Regenerating files
 		go generate ./... || exit /b 1
