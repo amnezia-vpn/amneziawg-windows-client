@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	officialCommonName = "WireGuard LLC"
+	officialCommonName = "Privacy Technologies OU"
 	evPolicyOid        = "2.23.140.1.3"
 	policyExtensionOid = "2.5.29.32"
 )

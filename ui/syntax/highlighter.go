@@ -8,7 +8,12 @@
 
 package syntax
 
-import "unsafe"
+import (
+	"strconv"
+	"unsafe"
+
+	"github.com/amnezia-vpn/amneziawg-go/device"
+)
 
 type highlight int
 
@@ -37,6 +42,7 @@ const (
 	highlightH2
 	highlightH3
 	highlightH4
+	highlightWarning
 	highlightError
 )
 
@@ -578,15 +584,15 @@ func (hsa *highlightSpanArray) highlightValue(parent, s stringSpan, section fiel
 	case fieldAddress, fieldDNS, fieldAllowedIPs:
 		hsa.highlightMultivalue(parent, s, section)
 	case fieldJc:
-		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 128), highlightJc))
+		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 65_535), highlightJc))
 	case fieldJmin:
-		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 1280), highlightJmin))
+		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 65_535), highlightJmin))
 	case fieldJmax:
-		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 1280), highlightJmax))
+		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 65_535), highlightJmax))
 	case fieldS1:
-		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 150), highlightS1))
+		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 65_535), highlightS1))
 	case fieldS2:
-		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 150), highlightS2))
+		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 65_535), highlightS2))
 	case fieldH1:
 		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 2_147_483_647), highlightH1))
 	case fieldH2:
@@ -682,4 +688,136 @@ func highlightConfig(config string) []highlightSpan {
 		}
 	}
 	return ([]highlightSpan)(ret)
+}
+
+func highlightASecConfig(cfg string, spans []highlightSpan) {
+	const (
+		maxMTU  = 1500
+		diffMTU = 80
+	)
+
+	var (
+		mtu  = 0
+		jc   = 0
+		jmin = 0
+		jmax = 0
+		s1   = 0
+		s2   = 0
+		h1   = 0
+		h2   = 0
+		h3   = 0
+		h4   = 0
+	)
+
+	var err error
+
+	for i := range spans {
+		span := &spans[i]
+		switch span.t {
+		case highlightError:
+			return
+		case highlightMTU:
+			if mtu, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
+				return
+			}
+		case highlightJc:
+			if jc, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
+				return
+			}
+		case highlightJmin:
+			if jmin, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
+				return
+			}
+		case highlightJmax:
+			if jmax, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
+				return
+			}
+		case highlightS1:
+			if s1, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
+				return
+			}
+		case highlightS2:
+			if s2, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
+				return
+			}
+		case highlightH1:
+			if h1, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
+				return
+			}
+		case highlightH2:
+			if h2, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
+				return
+			}
+		case highlightH3:
+			if h3, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
+				return
+			}
+		case highlightH4:
+			if h4, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
+				return
+			}
+		}
+	}
+
+	if mtu == 0 {
+		mtu = device.DefaultMTU
+	}
+	if h1 <= 4 {
+		h1 = 1
+	}
+	if h2 <= 4 {
+		h2 = 2
+	}
+	if h3 <= 4 {
+		h3 = 3
+	}
+	if h4 <= 4 {
+		h4 = 4
+	}
+
+	for i := range spans {
+		span := &spans[i]
+		switch span.t {
+		case highlightJc:
+			if jc > 128 {
+				span.t = highlightWarning
+			}
+		case highlightJmin:
+			if (jc != 0 || jmin != 0 || jmax != 0) && (jmin >= jmax || jmin >= mtu+diffMTU || jmin >= maxMTU) {
+				span.t = highlightWarning
+			}
+		case highlightJmax:
+			if (jc != 0 || jmin != 0 || jmax != 0) && (jmax <= jmin || jmax > mtu+diffMTU || jmax > maxMTU) {
+				span.t = highlightWarning
+			}
+		case highlightS1:
+			if s1+device.MessageInitiationSize == s2+device.MessageResponseSize {
+				span.t = highlightError
+			} else if s1 > mtu-device.MessageInitiationSize+diffMTU || s1 > maxMTU-device.MessageInitiationSize {
+				span.t = highlightWarning
+			}
+		case highlightS2:
+			if s1+device.MessageInitiationSize == s2+device.MessageResponseSize {
+				span.t = highlightError
+			} else if s2 > mtu-device.MessageResponseSize+diffMTU || s2 > maxMTU-device.MessageResponseSize {
+				span.t = highlightWarning
+			}
+		case highlightH1:
+			if h1 > 4 && (h1 == h2 || h1 == h3 || h1 == h4) {
+				span.t = highlightError
+			}
+		case highlightH2:
+			if h2 > 4 && (h2 == h1 || h2 == h3 || h2 == h4) {
+				span.t = highlightError
+			}
+		case highlightH3:
+			if h3 > 4 && (h3 == h1 || h3 == h2 || h3 == h4) {
+				span.t = highlightError
+			}
+		case highlightH4:
+			if h4 > 4 && (h4 == h1 || h4 == h2 || h4 == h3) {
+				span.t = highlightError
+			}
+		}
+	}
 }

@@ -69,6 +69,7 @@ func NewTunnelsPage() (*TunnelsPage, error) {
 	vlayout.SetAlignment(walk.AlignHNearVCenter)
 	vlayout.SetMargins(walk.Margins{})
 	tp.currentTunnelContainer.SetLayout(vlayout)
+	hlayout.SetStretchFactor(tp.currentTunnelContainer, 100)
 
 	if tp.fillerContainer, err = walk.NewComposite(tp); err != nil {
 		return nil, err
@@ -78,6 +79,7 @@ func NewTunnelsPage() (*TunnelsPage, error) {
 	vlayout.SetAlignment(walk.AlignHCenterVCenter)
 	vlayout.SetMargins(walk.Margins{})
 	tp.fillerContainer.SetLayout(vlayout)
+	hlayout.SetStretchFactor(tp.fillerContainer, 100)
 
 	fillerButtonContainer, _ := walk.NewComposite(tp.fillerContainer)
 	hlayout = walk.NewHBoxLayout()

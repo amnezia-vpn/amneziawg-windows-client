@@ -78,7 +78,7 @@ func newEditDialog(owner walk.Form, tunnel *manager.Tunnel) (*EditDialog, error)
 	dlg.SetIcon(owner.Icon())
 	dlg.SetTitle(title)
 	dlg.SetLayout(layout)
-	dlg.SetMinMaxSize(walk.Size{500, 400}, walk.Size{0, 0})
+	dlg.SetMinMaxSize(walk.Size{500, 500}, walk.Size{0, 0})
 	if icon, err := loadSystemIcon("imageres", -114, 32); err == nil {
 		dlg.SetIcon(icon)
 	}
@@ -152,6 +152,7 @@ func newEditDialog(owner walk.Form, tunnel *manager.Tunnel) (*EditDialog, error)
 	dlg.SetCancelButton(cancelButton)
 	dlg.SetDefaultButton(dlg.saveButton)
 
+	dlg.syntaxEdit.TextChanged().Attach(dlg.onSyntaxEditTextChanged)
 	dlg.syntaxEdit.PrivateKeyChanged().Attach(dlg.onSyntaxEditPrivateKeyChanged)
 	dlg.syntaxEdit.BlockUntunneledTrafficStateChanged().Attach(dlg.onBlockUntunneledTrafficStateChanged)
 	dlg.syntaxEdit.SetText(dlg.config.ToWgQuick())
@@ -310,6 +311,10 @@ func (dlg *EditDialog) onSyntaxEditPrivateKeyChanged(privateKey string) {
 	} else {
 		dlg.pubkeyEdit.SetText(l18n.Sprintf("(unknown)"))
 	}
+}
+
+func (dlg *EditDialog) onSyntaxEditTextChanged() {
+	dlg.saveButton.SetEnabled(dlg.syntaxEdit.HaveErrors())
 }
 
 func (dlg *EditDialog) onSaveButtonClicked() {

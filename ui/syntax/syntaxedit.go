@@ -23,6 +23,7 @@ type SyntaxEdit struct {
 	irich                           *win.IRichEditOle
 	idoc                            *win.ITextDocument
 	lastBlockState                  BlockState
+	haveErrors                      bool
 	yheight                         int
 	highlightGuard                  uint32
 	textChangedPublisher            walk.EventPublisher
@@ -72,6 +73,10 @@ func (se *SyntaxEdit) SetText(text string) (err error) {
 	return
 }
 
+func (se *SyntaxEdit) HaveErrors() bool {
+	return se.haveErrors
+}
+
 func (se *SyntaxEdit) TextChanged() *walk.Event {
 	return se.textChangedPublisher.Event()
 }
@@ -105,6 +110,16 @@ var stylemap = map[highlight]spanStyle{
 	highlightComment:      {color: win.RGB(0x53, 0x65, 0x79), effects: win.CFE_ITALIC},
 	highlightDelimiter:    {color: win.RGB(0x00, 0x00, 0x00)},
 	highlightCmd:          {color: win.RGB(0x63, 0x75, 0x89)},
+	highlightJc:           {color: win.RGB(0x64, 0x38, 0x20)},
+	highlightJmin:         {color: win.RGB(0x64, 0x38, 0x20)},
+	highlightJmax:         {color: win.RGB(0x64, 0x38, 0x20)},
+	highlightS1:           {color: win.RGB(0x64, 0x38, 0x20)},
+	highlightS2:           {color: win.RGB(0x64, 0x38, 0x20)},
+	highlightH1:           {color: win.RGB(0x64, 0x38, 0x20)},
+	highlightH2:           {color: win.RGB(0x64, 0x38, 0x20)},
+	highlightH3:           {color: win.RGB(0x64, 0x38, 0x20)},
+	highlightH4:           {color: win.RGB(0x64, 0x38, 0x20)},
+	highlightWarning:      {color: win.RGB(0xC4, 0x1A, 0x16), effects: win.CFE_UNDERLINE},
 	highlightError:        {color: win.RGB(0xC4, 0x1A, 0x16), effects: win.CFE_UNDERLINE},
 }
 
@@ -191,6 +206,18 @@ done:
 	}
 }
 
+func (se *SyntaxEdit) evaluateHaveErrors(spans []highlightSpan) {
+	for i := range spans {
+		span := &spans[i]
+		switch span.t {
+		case highlightError:
+			se.haveErrors = false
+			return
+		}
+	}
+	se.haveErrors = true
+}
+
 func (se *SyntaxEdit) highlightText() error {
 	if !atomic.CompareAndSwapUint32(&se.highlightGuard, 0, 1) {
 		return nil
@@ -220,7 +247,9 @@ func (se *SyntaxEdit) highlightText() error {
 	cfg := strings.Replace(string(msg[:msgCount]), "\r", "\n", -1)
 
 	spans := highlightConfig(cfg)
+	highlightASecConfig(cfg, spans)
 	se.evaluateUntunneledBlocking(cfg, spans)
+	se.evaluateHaveErrors(spans)
 
 	se.idoc.Undo(win.TomSuspend, nil)
 	win.SendMessage(hWnd, win.EM_SETEVENTMASK, 0, 0)
