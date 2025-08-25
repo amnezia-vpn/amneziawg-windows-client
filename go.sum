@@ -1,6 +1,6 @@
 github.com/amnezia-vpn/amneziawg-go v0.2.13 h1:xFxCumnmtYTOMeg14MPG53p9RpmvSnjrDEB1bFma79A=
 github.com/amnezia-vpn/amneziawg-go v0.2.13/go.mod h1:TB75yoG4yP6nVcJY3CPWstDcgOtlouC4xWyE7U9XqzU=
-github.com/amnezia-vpn/amneziawg-windows v0.1.5 h1:Buce6p66HvSxtXuvIk4jwumrBD4MuVXbkjffSNHQEJY=
+github.com/amnezia-vpn/amneziawg-windows v0.1.5 h1:CahchP5FjYxoTjqdHEiEvpPUgJMKWzzF8/P7t+H06qU=
 github.com/amnezia-vpn/amneziawg-windows v0.1.5/go.mod h1:ectYxkXIMLMzOjTF4pUTvUO9cvpYQDehB050G191R00=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
