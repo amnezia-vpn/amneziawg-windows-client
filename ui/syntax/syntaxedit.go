@@ -126,10 +126,6 @@ var stylemap = map[highlight]spanStyle{
 	highlightI3:           {color: win.RGB(0x64, 0x38, 0x20)},
 	highlightI4:           {color: win.RGB(0x64, 0x38, 0x20)},
 	highlightI5:           {color: win.RGB(0x64, 0x38, 0x20)},
-	highlightJ1:           {color: win.RGB(0x64, 0x38, 0x20)},
-	highlightJ2:           {color: win.RGB(0x64, 0x38, 0x20)},
-	highlightJ3:           {color: win.RGB(0x64, 0x38, 0x20)},
-	highlightItime:        {color: win.RGB(0x64, 0x38, 0x20)},
 	highlightWarning:      {color: win.RGB(0xC4, 0x1A, 0x16), effects: win.CFE_UNDERLINE},
 	highlightError:        {color: win.RGB(0xC4, 0x1A, 0x16), effects: win.CFE_UNDERLINE},
 }
