@@ -763,10 +763,6 @@ func highlightASecConfig(cfg string, spans []highlightSpan) {
 		jmax = 0
 		s1   = 0
 		s2   = 0
-		h1   = 0
-		h2   = 0
-		h3   = 0
-		h4   = 0
 	)
 
 	var err error
@@ -800,39 +796,11 @@ func highlightASecConfig(cfg string, spans []highlightSpan) {
 			if s2, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
 				return
 			}
-		case highlightH1:
-			if h1, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
-				return
-			}
-		case highlightH2:
-			if h2, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
-				return
-			}
-		case highlightH3:
-			if h3, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
-				return
-			}
-		case highlightH4:
-			if h4, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
-				return
-			}
 		}
 	}
 
 	if mtu == 0 {
 		mtu = device.DefaultMTU
-	}
-	if h1 <= 4 {
-		h1 = 1
-	}
-	if h2 <= 4 {
-		h2 = 2
-	}
-	if h3 <= 4 {
-		h3 = 3
-	}
-	if h4 <= 4 {
-		h4 = 4
 	}
 
 	for i := range spans {
@@ -861,22 +829,6 @@ func highlightASecConfig(cfg string, spans []highlightSpan) {
 				span.t = highlightError
 			} else if s2 > mtu-device.MessageResponseSize+diffMTU || s2 > maxMTU-device.MessageResponseSize {
 				span.t = highlightWarning
-			}
-		case highlightH1:
-			if h1 > 4 && (h1 == h2 || h1 == h3 || h1 == h4) {
-				span.t = highlightError
-			}
-		case highlightH2:
-			if h2 > 4 && (h2 == h1 || h2 == h3 || h2 == h4) {
-				span.t = highlightError
-			}
-		case highlightH3:
-			if h3 > 4 && (h3 == h1 || h3 == h2 || h3 == h4) {
-				span.t = highlightError
-			}
-		case highlightH4:
-			if h4 > 4 && (h4 == h1 || h4 == h2 || h4 == h3) {
-				span.t = highlightError
 			}
 		}
 	}
