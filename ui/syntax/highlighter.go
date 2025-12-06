@@ -761,8 +761,6 @@ func highlightASecConfig(cfg string, spans []highlightSpan) {
 		jc   = 0
 		jmin = 0
 		jmax = 0
-		s1   = 0
-		s2   = 0
 	)
 
 	var err error
@@ -788,14 +786,6 @@ func highlightASecConfig(cfg string, spans []highlightSpan) {
 			if jmax, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
 				return
 			}
-		case highlightS1:
-			if s1, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
-				return
-			}
-		case highlightS2:
-			if s2, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
-				return
-			}
 		}
 	}
 
@@ -816,18 +806,6 @@ func highlightASecConfig(cfg string, spans []highlightSpan) {
 			}
 		case highlightJmax:
 			if (jc != 0 || jmin != 0 || jmax != 0) && (jmax <= jmin || jmax > mtu+diffMTU || jmax > maxMTU) {
-				span.t = highlightWarning
-			}
-		case highlightS1:
-			if s1+device.MessageInitiationSize == s2+device.MessageResponseSize {
-				span.t = highlightError
-			} else if s1 > mtu-device.MessageInitiationSize+diffMTU || s1 > maxMTU-device.MessageInitiationSize {
-				span.t = highlightWarning
-			}
-		case highlightS2:
-			if s1+device.MessageInitiationSize == s2+device.MessageResponseSize {
-				span.t = highlightError
-			} else if s2 > mtu-device.MessageResponseSize+diffMTU || s2 > maxMTU-device.MessageResponseSize {
 				span.t = highlightWarning
 			}
 		}
