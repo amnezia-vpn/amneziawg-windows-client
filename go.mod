@@ -3,8 +3,8 @@ module github.com/amnezia-vpn/amneziawg-windows-client
 go 1.24.4
 
 require (
-	github.com/amnezia-vpn/amneziawg-go v0.2.13
-	github.com/amnezia-vpn/amneziawg-windows v0.1.5
+	github.com/amnezia-vpn/amneziawg-go v0.2.16
+	github.com/amnezia-vpn/amneziawg-windows v0.1.8
 	github.com/lxn/walk v0.0.0-20210112085537-c389da54e794
 	github.com/lxn/win v0.0.0-20210218163916-a377121e959e
 	golang.org/x/crypto v0.39.0
@@ -14,8 +14,6 @@ require (
 )
 
 require (
-	github.com/tevino/abool v1.2.0 // indirect
-	go.uber.org/atomic v1.11.0 // indirect
 	golang.org/x/mod v0.25.0 // indirect
 	golang.org/x/net v0.41.0 // indirect
 	golang.org/x/sync v0.15.0 // indirect
