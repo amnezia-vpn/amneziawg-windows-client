@@ -61,5 +61,5 @@ jobs:
           files: installer/dist/**
           name: ${{ steps.get_version.outputs.VERSION }}
           tag_name: v${{ steps.get_version.outputs.VERSION }}
+          generate_release_notes: true
           append_body: true
- 
