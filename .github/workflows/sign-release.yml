@@ -30,7 +30,7 @@ jobs:
 
       - name: prepare signtool
         run: |
-          $signtoolExe = Get-ChildItem "C:\Program Files (x86)\Windows Kits\10\bin" -Recurse -Filter x64/signtool.exe | Select-Object -First 1
+          $signtoolExe = Get-ChildItem "C:\Program Files (x86)\Windows Kits\10\bin" -Recurse -Filter signtool.exe | Where-Object { $_.DirectoryName -match "\\x64$" } | Select-Object -First 1
           $signtoolPath = $signtoolExe.DirectoryName
           echo "Adding $signtoolPath to PATH"
           echo "$signtoolPath" >> $env:GITHUB_PATH
