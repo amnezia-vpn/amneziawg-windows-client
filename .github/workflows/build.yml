@@ -1,0 +1,26 @@
+name: build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: run build
+        run: build.bat
+        shell: cmd
+
+      - name: run installer build
+        run: installer/build.bat
+        shell: cmd
+
+      - name: upload installer artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer artifacts
+          path: installer/dist/**
+          retention-days: 7
