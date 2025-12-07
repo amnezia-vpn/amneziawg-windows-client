@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
-    
+
       - name: prepare sign
         env:
           SIGN_PFX_BASE64: ${{ secrets.SIGN_PFX_BASE64 }}
@@ -28,6 +28,13 @@ jobs:
           echo $SIGN_BAT_BASE64 | base64 --decode > installer/sign.bat
         shell: bash
 
+      - name: prepare signtool
+        run: |
+          $signtoolPath = "C:\Program Files (x86)\Windows Kits\10\bin\x64"
+          echo "Adding $signtoolPath to PATH"
+          echo "$signtoolPath" >> $env:GITHUB_PATH
+        shell: pwsh
+  
       - name: run build
         run: build.bat
         shell: cmd
