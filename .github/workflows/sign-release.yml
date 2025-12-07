@@ -3,12 +3,22 @@ name: sign-release
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   sign-release:
     runs-on: windows-latest
     steps:
       - name: checkout
         uses: actions/checkout@v4
+
+      - name: prepare version
+        id: get_version
+        run: |
+          VERSION=$(grep 'Number = "' version/version.go | sed 's/.*Number = "\(.*\)"/\1/')
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        shell: bash
 
       - name: prepare sign
         env:
@@ -44,9 +54,12 @@ jobs:
         run: installer/build.bat
         shell: cmd
 
-      - name: upload installer artifacts
-        uses: actions/upload-artifact@v4
+      - name: create release
+        uses: softprops/action-gh-release@v2
         with:
-          name: installer artifacts
-          path: installer/dist/**
-          retention-days: 7
+          body: This is an unofficial release signed with a self-signed certificate. The signature is required for the update function to work.
+          files: installer/dist/**
+          name: ${{ steps.get_version.outputs.VERSION }}
+          tag_name: v${{ steps.get_version.outputs.VERSION }}
+          append_body: true
+ 
