@@ -49,10 +49,6 @@ const (
 	highlightI3
 	highlightI4
 	highlightI5
-	highlightJ1
-	highlightJ2
-	highlightJ3
-	highlightItime
 	highlightWarning
 	highlightError
 )
@@ -382,11 +378,21 @@ func (s stringSpan) isValidNetwork() bool {
 	return s.isValidIPv4() || s.isValidIPv6()
 }
 
-func (s stringSpan) isValidIField() bool {
-	return s.len != 0
+func (s stringSpan) isValidHField() bool {
+	for i := 0; i < s.len; i++ {
+		if *s.at(i) == '-' {
+			first := stringSpan{s.s, i}
+			second := stringSpan{s.at(i + 1), s.len - i - 1}
+			if first.isValidUint(false, 0, 2_147_483_647) && second.isValidUint(false, 0, 2_147_483_647) {
+				return true
+			}
+			return false
+		}
+	}
+	return s.isValidUint(false, 0, 2_147_483_647)
 }
 
-func (s stringSpan) isValidJField() bool {
+func (s stringSpan) isValidIField() bool {
 	return s.len != 0
 }
 
@@ -420,10 +426,6 @@ const (
 	fieldI3
 	fieldI4
 	fieldI5
-	fieldJ1
-	fieldJ2
-	fieldJ3
-	fieldItime
 	fieldPeerSection
 	fieldPublicKey
 	fieldPresharedKey
@@ -507,14 +509,6 @@ func (s stringSpan) field() field {
 		return fieldI4
 	case s.isCaselessSame("I5"):
 		return fieldI5
-	case s.isCaselessSame("J1"):
-		return fieldJ1
-	case s.isCaselessSame("J2"):
-		return fieldJ2
-	case s.isCaselessSame("J3"):
-		return fieldJ3
-	case s.isCaselessSame("Itime"):
-		return fieldItime
 	}
 	return fieldInvalid
 }
@@ -650,13 +644,13 @@ func (hsa *highlightSpanArray) highlightValue(parent, s stringSpan, section fiel
 	case fieldS4:
 		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 65_535), highlightS4))
 	case fieldH1:
-		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 2_147_483_647), highlightH1))
+		hsa.append(parent.s, s, validateHighlight(s.isValidHField(), highlightH1))
 	case fieldH2:
-		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 2_147_483_647), highlightH2))
+		hsa.append(parent.s, s, validateHighlight(s.isValidHField(), highlightH2))
 	case fieldH3:
-		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 2_147_483_647), highlightH3))
+		hsa.append(parent.s, s, validateHighlight(s.isValidHField(), highlightH3))
 	case fieldH4:
-		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 2_147_483_647), highlightH4))
+		hsa.append(parent.s, s, validateHighlight(s.isValidHField(), highlightH4))
 	case fieldI1:
 		hsa.append(parent.s, s, validateHighlight(s.isValidIField(), highlightI1))
 	case fieldI2:
@@ -667,14 +661,6 @@ func (hsa *highlightSpanArray) highlightValue(parent, s stringSpan, section fiel
 		hsa.append(parent.s, s, validateHighlight(s.isValidIField(), highlightI4))
 	case fieldI5:
 		hsa.append(parent.s, s, validateHighlight(s.isValidIField(), highlightI5))
-	case fieldJ1:
-		hsa.append(parent.s, s, validateHighlight(s.isValidJField(), highlightJ1))
-	case fieldJ2:
-		hsa.append(parent.s, s, validateHighlight(s.isValidJField(), highlightJ2))
-	case fieldJ3:
-		hsa.append(parent.s, s, validateHighlight(s.isValidJField(), highlightJ3))
-	case fieldItime:
-		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 2_147_483_647), highlightItime))
 	default:
 		hsa.append(parent.s, s, highlightError)
 	}
@@ -775,12 +761,6 @@ func highlightASecConfig(cfg string, spans []highlightSpan) {
 		jc   = 0
 		jmin = 0
 		jmax = 0
-		s1   = 0
-		s2   = 0
-		h1   = 0
-		h2   = 0
-		h3   = 0
-		h4   = 0
 	)
 
 	var err error
@@ -806,47 +786,11 @@ func highlightASecConfig(cfg string, spans []highlightSpan) {
 			if jmax, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
 				return
 			}
-		case highlightS1:
-			if s1, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
-				return
-			}
-		case highlightS2:
-			if s2, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
-				return
-			}
-		case highlightH1:
-			if h1, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
-				return
-			}
-		case highlightH2:
-			if h2, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
-				return
-			}
-		case highlightH3:
-			if h3, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
-				return
-			}
-		case highlightH4:
-			if h4, err = strconv.Atoi(cfg[span.s : span.s+span.len]); err != nil {
-				return
-			}
 		}
 	}
 
 	if mtu == 0 {
 		mtu = device.DefaultMTU
-	}
-	if h1 <= 4 {
-		h1 = 1
-	}
-	if h2 <= 4 {
-		h2 = 2
-	}
-	if h3 <= 4 {
-		h3 = 3
-	}
-	if h4 <= 4 {
-		h4 = 4
 	}
 
 	for i := range spans {
@@ -863,34 +807,6 @@ func highlightASecConfig(cfg string, spans []highlightSpan) {
 		case highlightJmax:
 			if (jc != 0 || jmin != 0 || jmax != 0) && (jmax <= jmin || jmax > mtu+diffMTU || jmax > maxMTU) {
 				span.t = highlightWarning
-			}
-		case highlightS1:
-			if s1+device.MessageInitiationSize == s2+device.MessageResponseSize {
-				span.t = highlightError
-			} else if s1 > mtu-device.MessageInitiationSize+diffMTU || s1 > maxMTU-device.MessageInitiationSize {
-				span.t = highlightWarning
-			}
-		case highlightS2:
-			if s1+device.MessageInitiationSize == s2+device.MessageResponseSize {
-				span.t = highlightError
-			} else if s2 > mtu-device.MessageResponseSize+diffMTU || s2 > maxMTU-device.MessageResponseSize {
-				span.t = highlightWarning
-			}
-		case highlightH1:
-			if h1 > 4 && (h1 == h2 || h1 == h3 || h1 == h4) {
-				span.t = highlightError
-			}
-		case highlightH2:
-			if h2 > 4 && (h2 == h1 || h2 == h3 || h2 == h4) {
-				span.t = highlightError
-			}
-		case highlightH3:
-			if h3 > 4 && (h3 == h1 || h3 == h2 || h3 == h4) {
-				span.t = highlightError
-			}
-		case highlightH4:
-			if h4 > 4 && (h4 == h1 || h4 == h2 || h4 == h3) {
-				span.t = highlightError
 			}
 		}
 	}
