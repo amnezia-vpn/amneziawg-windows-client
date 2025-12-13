@@ -38,6 +38,13 @@ jobs:
           echo $SIGN_BAT_BASE64 | base64 --decode > installer/sign.bat
         shell: bash
 
+      - name: prepare update sign
+        env:
+          AWGWC_SEC_BASE64: ${{ secrets.AWGWC_SEC_BASE64 }}
+        run: |
+          echo $AWGWC_SEC_BASE64 | base64 --decode > installer/amneziawg-client-windows.sec
+        shell: bash
+
       - name: prepare signtool
         run: |
           $signtoolExe = Get-ChildItem "C:\Program Files (x86)\Windows Kits\10\bin" -Recurse -Filter signtool.exe | Where-Object { $_.DirectoryName -match "\\x64$" } | Select-Object -First 1
@@ -45,7 +52,13 @@ jobs:
           echo "Adding $signtoolPath to PATH"
           echo "$signtoolPath" >> $env:GITHUB_PATH
         shell: pwsh
-  
+
+      - name: prepare signify
+        uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: mingw-w64-x86_64-signify
+
       - name: run build
         run: build.bat
         shell: cmd
@@ -54,19 +67,12 @@ jobs:
         run: installer/build.bat
         shell: cmd
 
-      - name: prepare update sign
-        env:
-          AWGWC_SEC_BASE64: ${{ secrets.AWGWC_SEC_BASE64 }}
-        run: |
-          echo $AWGWC_SEC_BASE64 | base64 --decode > installer/amneziawg-client-windows.sec
-        shell: bash
-
       - name: run update sign
         run: |
           cd installer/dist
           b2sum -l 256 amneziawg-* >> latest.lst
-          signify-openbsd -S -e -x latest.sig -s ../amneziawg-windows-client.sec -m latest.lst
-        shell: bash
+          signify -S -e -x latest.sig -s ../amneziawg-windows-client.sec -m latest.lst
+        shell: msys2 {0}
 
       - name: upload installer artifacts
         uses: actions/upload-artifact@v4
