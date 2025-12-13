@@ -11,7 +11,7 @@ jobs:
         env:
           AWGWC_SEC_BASE64: ${{ secrets.AWGWC_SEC_BASE64 }}
         run: |
-          echo $AWGWC_SEC_BASE64 | base64 --decode > amneziawg-client-windows.sec
+          echo $AWGWC_SEC_BASE64 | base64 --decode > amneziawg-windows-client.sec
 
       - name: prepare signify
         run: |
@@ -28,3 +28,13 @@ jobs:
         run: |
           b2sum -l 256 amneziawg-*.msi >> latest.lst
           signify-openbsd -S -e -x latest.sig -s amneziawg-windows-client.sec -m latest.lst
+
+      - name: upload installer artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifacts
+          path: |
+            amneziawg-*.msi
+            latest.lst
+            latest.sig
+          retention-days: 7
