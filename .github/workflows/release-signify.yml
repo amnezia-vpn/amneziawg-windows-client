@@ -19,9 +19,10 @@ jobs:
           sudo apt install -y signify-openbsd
 
       - name: prepare files
+        id: get_release_tag
         uses: robinraju/release-downloader@v1
         with:
-          releaseId: ${{ github.ref_name }}
+          latest: true
           fileName: amneziawg-*.msi
 
       - name: run signify
@@ -29,12 +30,8 @@ jobs:
           b2sum -l 256 amneziawg-*.msi >> latest.lst
           signify-openbsd -S -e -x latest.sig -s amneziawg-windows-client.sec -m latest.lst
 
-      - name: upload installer artifacts
-        uses: actions/upload-artifact@v4
+      - name: update release
+        uses: softprops/action-gh-release@v2
         with:
-          name: artifacts
-          path: |
-            amneziawg-*.msi
-            latest.lst
-            latest.sig
-          retention-days: 7
+          files: latest.sig
+          tag_name: ${{steps.get_release_tag.outputs.release_name}}
