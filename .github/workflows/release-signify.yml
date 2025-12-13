@@ -34,4 +34,4 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: latest.sig
-          tag_name: ${{steps.get_release_tag.outputs.release_name}}
+          tag_name: ${{steps.get_release_tag.outputs.tag_name}}
