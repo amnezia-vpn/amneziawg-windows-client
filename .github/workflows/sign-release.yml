@@ -63,3 +63,36 @@ jobs:
           tag_name: v${{ steps.get_version.outputs.VERSION }}
           generate_release_notes: true
           append_body: true
+
+  release-signify:
+    needs: sign-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: prepare key
+        env:
+          AWGWC_SEC_BASE64: ${{ secrets.AWGWC_SEC_BASE64 }}
+        run: |
+          echo $AWGWC_SEC_BASE64 | base64 --decode > amneziawg-windows-client.sec
+
+      - name: prepare signify
+        run: |
+          sudo apt update
+          sudo apt install -y signify-openbsd
+
+      - name: prepare files
+        id: get_release_tag
+        uses: robinraju/release-downloader@v1
+        with:
+          latest: true
+          fileName: amneziawg-*.msi
+
+      - name: run signify
+        run: |
+          b2sum -l 256 amneziawg-*.msi >> latest.lst
+          signify-openbsd -S -e -x latest.sig -s amneziawg-windows-client.sec -m latest.lst
+
+      - name: update release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: latest.sig
+          tag_name: ${{steps.get_release_tag.outputs.tag_name}}
