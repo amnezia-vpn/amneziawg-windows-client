@@ -7,7 +7,7 @@ permissions:
   contents: write
 
 jobs:
-  sign-release:
+  sign-build:
     runs-on: windows-latest
     steps:
       - name: checkout
@@ -58,13 +58,13 @@ jobs:
         env:
           AWGWC_SEC_BASE64: ${{ secrets.AWGWC_SEC_BASE64 }}
         run: |
-          echo $AWGWC_SEC_BASE64 | base64 --decode > amneziawg-client-windows.sec
+          echo $AWGWC_SEC_BASE64 | base64 --decode > installer/amneziawg-client-windows.sec
         shell: bash
 
       - name: run update sign
         run: |
-          cd installer
-          b2sum -l 256 amneziawg-*.msi >> latest.lst
+          cd installer/dist
+          b2sum -l 256 amneziawg-* >> latest.lst
           signify-openbsd -S -e -x latest.sig -s ../amneziawg-windows-client.sec -m latest.lst
         shell: bash
 
