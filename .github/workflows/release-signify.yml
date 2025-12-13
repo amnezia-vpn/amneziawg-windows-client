@@ -21,7 +21,7 @@ jobs:
       - name: prepare files
         uses: robinraju/release-downloader@v1
         with:
-          latest: true
+          releaseId: ${{ github.ref_name }}
           fileName: amneziawg-*.msi
 
       - name: run signify
