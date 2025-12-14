@@ -1326,6 +1326,16 @@
             "translatorComment": "Copied from source."
         },
         {
+            "id": "Ensure that you obtained the configuration file from a trusted source.",
+            "message": "Ensure that you obtained the configuration file from a trusted source.",
+            "translation": "Убедитесь, что вы получили файл конфигурации в надёжном источнике."
+        },
+        {
+            "id": "Official Amnezia services are available only at amnezia.org.",
+            "message": "Official Amnezia services are available only at amnezia.org.",
+            "translation": "Официальные сервисы Amnezia доступны только на сайте amnezia.org."
+        },
+        {
             "id": "&Edit",
             "message": "&Edit",
             "translation": "&Редактировать",
