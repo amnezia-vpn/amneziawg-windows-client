@@ -7,11 +7,11 @@ package updater
 
 const (
 	releasePublicKeyBase64 = "RWRNqGKtBXftKTKPpBPGDMe8jHLnFQ0EdRy8Wg0apV6vTDFLAODD83G4"
-	updateServerHost       = "download.wireguard.com"
+	updateServerHost       = "github.com"
 	updateServerPort       = 443
 	updateServerUseHttps   = true
-	latestVersionPath      = "/windows-client/latest.sig"
-	msiPath                = "/windows-client/%s"
-	msiArchPrefix          = "wireguard-%s-"
+	latestVersionPath      = "/amnezia-vpn/amneziawg-windows-client/releases/latest/download/latest.sig"
+	msiPath                = "/amnezia-vpn/amneziawg-windows-client/releases/latest/download/%s"
+	msiArchPrefix          = "amneziawg-%s-"
 	msiSuffix              = ".msi"
 )

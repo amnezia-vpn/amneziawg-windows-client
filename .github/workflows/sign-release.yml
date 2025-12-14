@@ -1,0 +1,98 @@
+name: sign-release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sign-release:
+    runs-on: windows-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: prepare version
+        id: get_version
+        run: |
+          VERSION=$(grep 'Number = "' version/version.go | sed 's/.*Number = "\(.*\)"/\1/')
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: prepare sign
+        env:
+          SIGN_PFX_BASE64: ${{ secrets.SIGN_PFX_BASE64 }}
+          SIGN_BAT_BASE64: ${{ secrets.SIGN_BAT_BASE64 }}
+        run: |
+          echo $SIGN_PFX_BASE64 | base64 --decode > sign.pfx
+          echo $SIGN_BAT_BASE64 | base64 --decode > sign.bat
+        shell: bash
+
+      - name: prepare installer sign
+        env:
+          SIGN_PFX_BASE64: ${{ secrets.SIGN_PFX_BASE64 }}
+          SIGN_BAT_BASE64: ${{ secrets.SIGN_BAT_BASE64 }}
+        run: |
+          echo $SIGN_PFX_BASE64 | base64 --decode > installer/sign.pfx
+          echo $SIGN_BAT_BASE64 | base64 --decode > installer/sign.bat
+        shell: bash
+
+      - name: prepare signtool
+        run: |
+          $signtoolExe = Get-ChildItem "C:\Program Files (x86)\Windows Kits\10\bin" -Recurse -Filter signtool.exe | Where-Object { $_.DirectoryName -match "\\x64$" } | Select-Object -First 1
+          $signtoolPath = $signtoolExe.DirectoryName
+          echo "Adding $signtoolPath to PATH"
+          echo "$signtoolPath" >> $env:GITHUB_PATH
+        shell: pwsh
+  
+      - name: run build
+        run: build.bat
+        shell: cmd
+
+      - name: run installer build
+        run: installer/build.bat
+        shell: cmd
+
+      - name: create release
+        uses: softprops/action-gh-release@v2
+        with:
+          body: This is an unofficial release signed with a self-signed certificate. The signature is required for the update function to work.
+          files: installer/dist/**
+          name: ${{ steps.get_version.outputs.VERSION }}
+          tag_name: v${{ steps.get_version.outputs.VERSION }}
+          generate_release_notes: true
+          append_body: true
+
+  release-signify:
+    needs: sign-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: prepare key
+        env:
+          AWGWC_SEC_BASE64: ${{ secrets.AWGWC_SEC_BASE64 }}
+        run: |
+          echo $AWGWC_SEC_BASE64 | base64 --decode > amneziawg-windows-client.sec
+
+      - name: prepare signify
+        run: |
+          sudo apt update
+          sudo apt install -y signify-openbsd
+
+      - name: prepare files
+        id: get_release_tag
+        uses: robinraju/release-downloader@v1
+        with:
+          latest: true
+          fileName: amneziawg-*.msi
+
+      - name: run signify
+        run: |
+          b2sum -l 256 amneziawg-*.msi >> latest.lst
+          signify-openbsd -S -e -x latest.sig -s amneziawg-windows-client.sec -m latest.lst
+
+      - name: update release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: latest.sig
+          tag_name: ${{steps.get_release_tag.outputs.tag_name}}

@@ -1,0 +1,59 @@
+name: sign-build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sign-build:
+    runs-on: windows-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: prepare version
+        id: get_version
+        run: |
+          VERSION=$(grep 'Number = "' version/version.go | sed 's/.*Number = "\(.*\)"/\1/')
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: prepare sign
+        env:
+          SIGN_PFX_BASE64: ${{ secrets.SIGN_PFX_BASE64 }}
+          SIGN_BAT_BASE64: ${{ secrets.SIGN_BAT_BASE64 }}
+        run: |
+          echo $SIGN_PFX_BASE64 | base64 --decode > sign.pfx
+          echo $SIGN_BAT_BASE64 | base64 --decode > sign.bat
+        shell: bash
+
+      - name: prepare installer sign
+        env:
+          SIGN_PFX_BASE64: ${{ secrets.SIGN_PFX_BASE64 }}
+          SIGN_BAT_BASE64: ${{ secrets.SIGN_BAT_BASE64 }}
+        run: |
+          echo $SIGN_PFX_BASE64 | base64 --decode > installer/sign.pfx
+          echo $SIGN_BAT_BASE64 | base64 --decode > installer/sign.bat
+        shell: bash
+
+      - name: prepare signtool
+        run: |
+          $signtoolExe = Get-ChildItem "C:\Program Files (x86)\Windows Kits\10\bin" -Recurse -Filter signtool.exe | Where-Object { $_.DirectoryName -match "\\x64$" } | Select-Object -First 1
+          $signtoolPath = $signtoolExe.DirectoryName
+          echo "Adding $signtoolPath to PATH"
+          echo "$signtoolPath" >> $env:GITHUB_PATH
+        shell: pwsh
+
+      - name: run build
+        run: build.bat
+        shell: cmd
+
+      - name: run installer build
+        run: installer/build.bat
+        shell: cmd
+
+      - name: upload installer artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer artifacts
+          path: installer/dist/**
+          retention-days: 7
