@@ -6,5 +6,5 @@
 package version
 
 const (
-	Number = "1.0.2"
+	Number = "1.0.4"
 )

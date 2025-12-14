@@ -95,53 +95,11 @@ func NewTunnelsPage() (*TunnelsPage, error) {
 		}
 	})
 
-	fillerInfoContainer, err := walk.NewComposite(tp.fillerContainer)
-	if err != nil {
-		return nil, err
-	}
-	vlayout = walk.NewVBoxLayout()
-	vlayout.SetAlignment(walk.AlignHCenterVCenter)
-	vlayout.SetMargins(walk.Margins{})
-	fillerInfoContainer.SetLayout(vlayout)
-
-	fillerInfoLabel1, err := walk.NewLabel(fillerInfoContainer)
-	if err != nil {
-		return nil, err
-	}
-	fillerInfoLabel1.SetTextAlignment(walk.AlignCenter)
-	fillerInfoLabel1.SetText(l18n.Sprintf("Ensure that you obtained the configuration file from a trusted source."))
-
-	fillerInfoLabel2, err := walk.NewLabel(fillerInfoContainer)
-	if err != nil {
-		return nil, err
-	}
-	fillerInfoLabel2.SetTextAlignment(walk.AlignCenter)
-	fillerInfoLabel2.SetText(l18n.Sprintf("Official Amnezia services are available only at amnezia.org."))
-
 	if tp.confView, err = NewConfView(tp.currentTunnelContainer); err != nil {
 		return nil, err
 	}
 
 	walk.NewVSpacer(tp.currentTunnelContainer)
-
-	infoContainer, err := walk.NewComposite(tp.currentTunnelContainer)
-	if err != nil {
-		return nil, err
-	}
-	vlayout = walk.NewVBoxLayout()
-	vlayout.SetMargins(walk.Margins{15, 0, 15, 0})
-	infoContainer.SetLayout(vlayout)
-
-	infoLabel, err := walk.NewLabel(infoContainer)
-	if err != nil {
-		return nil, err
-	}
-	infoLabel.SetText(l18n.Sprintf("Ensure that you obtained the configuration file from a trusted source."))
-	infoLabel2, err := walk.NewLabel(infoContainer)
-	if err != nil {
-		return nil, err
-	}
-	infoLabel2.SetText(l18n.Sprintf("Official Amnezia services are available only at amnezia.org."))
 
 	controlsContainer, err := walk.NewComposite(tp.currentTunnelContainer)
 	if err != nil {
