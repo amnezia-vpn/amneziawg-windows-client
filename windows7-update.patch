@@ -1,0 +1,15 @@
+diff --git a/updater/constants.go b/updater/constants.go
+index de2572e..6d9d2d8 100644
+--- a/updater/constants.go
++++ b/updater/constants.go
+@@ -10,8 +10,8 @@ const (
+ 	updateServerHost       = "updates.amnezia.org"
+ 	updateServerPort       = 443
+ 	updateServerUseHttps   = true
+-	latestVersionPath      = "/amneziawg/windows-client/latest.sig"
++	latestVersionPath      = "/amneziawg/windows-client/latest-windows7.sig"
+ 	msiPath                = "/amneziawg/windows-client/%s"
+-	msiArchPrefix          = "amneziawg-%s-"
++	msiArchPrefix          = "amneziawg-%s-windows7-"
+ 	msiSuffix              = ".msi"
+ )
