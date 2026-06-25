@@ -6,12 +6,12 @@
 package updater
 
 const (
-	releasePublicKeyBase64 = "RWRNqGKtBXftKTKPpBPGDMe8jHLnFQ0EdRy8Wg0apV6vTDFLAODD83G4"
-	updateServerHost       = "download.wireguard.com"
+	releasePublicKeyBase64 = "RWTIu7lL938k14FQAOYx3R4MaIKLv6CmaxBI3G8zV7tbjpmqFY38l2r3"
+	updateServerHost       = "updates.amnezia.org"
 	updateServerPort       = 443
 	updateServerUseHttps   = true
-	latestVersionPath      = "/windows-client/latest.sig"
-	msiPath                = "/windows-client/%s"
-	msiArchPrefix          = "wireguard-%s-"
+	latestVersionPath      = "/amneziawg/windows-client/latest.sig"
+	msiPath                = "/amneziawg/windows-client/%s"
+	msiArchPrefix          = "amneziawg-%s-"
 	msiSuffix              = ".msi"
 )
