@@ -19,7 +19,7 @@ import (
 
 	"github.com/amnezia-vpn/amneziawg-windows-client/l18n"
 	"github.com/amnezia-vpn/amneziawg-windows-client/manager"
-	"github.com/amnezia-vpn/amneziawg-windows/conf"
+	"github.com/amnezia-vpn/amneziawg-windows/v3/conf"
 )
 
 type TunnelsPage struct {

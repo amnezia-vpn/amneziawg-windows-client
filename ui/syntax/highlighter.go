@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"unsafe"
 
-	"github.com/amnezia-vpn/amneziawg-go/device"
+	"github.com/amnezia-vpn/amneziawg-go/v3/device"
 )
 
 type highlight int
@@ -49,6 +49,13 @@ const (
 	highlightI3
 	highlightI4
 	highlightI5
+	highlightHeaderProtectionKey
+	highlightContentPaddingAddition
+	highlightRekeyAfterTime
+	highlightRekeyTimeout
+	highlightRejectAfterTime
+	highlightKeepaliveTimeout
+	highlightMaxHandshakeAttempts
 	highlightWarning
 	highlightError
 )
@@ -291,7 +298,7 @@ func (s stringSpan) isValidPersistentKeepAlive() bool {
 	if s.isSame("off") {
 		return true
 	}
-	return s.isValidUint(false, 0, 65535)
+	return s.isValidHField()
 }
 
 // It's probably not worthwhile to try to validate a bash expression. So instead we just demand non-zero length.
@@ -382,7 +389,7 @@ func (s stringSpan) isValidNetwork() bool {
 	return s.isValidIPv4() || s.isValidIPv6()
 }
 
-func (s stringSpan) isValidHField() bool {
+func (s stringSpan) isValidUintRange() bool {
 	for i := 0; i < s.len; i++ {
 		if *s.at(i) == '-' {
 			first := stringSpan{s.s, i}
@@ -394,6 +401,10 @@ func (s stringSpan) isValidHField() bool {
 		}
 	}
 	return s.isValidUint32()
+}
+
+func (s stringSpan) isValidHField() bool {
+	return s.isValidUintRange()
 }
 
 func (s stringSpan) isValidIField() bool {
@@ -430,6 +441,13 @@ const (
 	fieldI3
 	fieldI4
 	fieldI5
+	fieldHeaderProtectionKey
+	fieldContentPaddingAddition
+	fieldRekeyAfterTime
+	fieldRekeyTimeout
+	fieldRejectAfterTime
+	fieldKeepaliveTimeout
+	fieldMaxHandshakeAttempts
 	fieldPeerSection
 	fieldPublicKey
 	fieldPresharedKey
@@ -513,6 +531,20 @@ func (s stringSpan) field() field {
 		return fieldI4
 	case s.isCaselessSame("I5"):
 		return fieldI5
+	case s.isCaselessSame("HeaderProtectionKey"):
+		return fieldHeaderProtectionKey
+	case s.isCaselessSame("ContentPaddingAddition"):
+		return fieldContentPaddingAddition
+	case s.isCaselessSame("RekeyAfterTime"):
+		return fieldRekeyAfterTime
+	case s.isCaselessSame("RekeyTimeout"):
+		return fieldRekeyTimeout
+	case s.isCaselessSame("RejectAfterTime"):
+		return fieldRejectAfterTime
+	case s.isCaselessSame("KeepaliveTimeout"):
+		return fieldKeepaliveTimeout
+	case s.isCaselessSame("MaxHandshakeAttempts"):
+		return fieldMaxHandshakeAttempts
 	}
 	return fieldInvalid
 }
@@ -665,6 +697,20 @@ func (hsa *highlightSpanArray) highlightValue(parent, s stringSpan, section fiel
 		hsa.append(parent.s, s, validateHighlight(s.isValidIField(), highlightI4))
 	case fieldI5:
 		hsa.append(parent.s, s, validateHighlight(s.isValidIField(), highlightI5))
+	case fieldHeaderProtectionKey:
+		hsa.append(parent.s, s, validateHighlight(s.isValidKey(), highlightHeaderProtectionKey))
+	case fieldContentPaddingAddition:
+		hsa.append(parent.s, s, validateHighlight(s.isValidHField(), highlightContentPaddingAddition))
+	case fieldRekeyAfterTime:
+		hsa.append(parent.s, s, validateHighlight(s.isValidHField(), highlightRekeyAfterTime))
+	case fieldRekeyTimeout:
+		hsa.append(parent.s, s, validateHighlight(s.isValidHField(), highlightRekeyTimeout))
+	case fieldRejectAfterTime:
+		hsa.append(parent.s, s, validateHighlight(s.isValidHField(), highlightRejectAfterTime))
+	case fieldKeepaliveTimeout:
+		hsa.append(parent.s, s, validateHighlight(s.isValidHField(), highlightKeepaliveTimeout))
+	case fieldMaxHandshakeAttempts:
+		hsa.append(parent.s, s, validateHighlight(s.isValidHField(), highlightMaxHandshakeAttempts))
 	default:
 		hsa.append(parent.s, s, highlightError)
 	}

@@ -12,7 +12,7 @@ import (
 	"sync"
 
 	"github.com/amnezia-vpn/amneziawg-windows-client/updater"
-	"github.com/amnezia-vpn/amneziawg-windows/conf"
+	"github.com/amnezia-vpn/amneziawg-windows/v3/conf"
 )
 
 type Tunnel struct {

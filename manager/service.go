@@ -22,7 +22,7 @@ import (
 	"github.com/amnezia-vpn/amneziawg-windows-client/elevate"
 	"github.com/amnezia-vpn/amneziawg-windows-client/ringlogger"
 	"github.com/amnezia-vpn/amneziawg-windows-client/services"
-	"github.com/amnezia-vpn/amneziawg-windows/conf"
+	"github.com/amnezia-vpn/amneziawg-windows/v3/conf"
 )
 
 type managerService struct{}

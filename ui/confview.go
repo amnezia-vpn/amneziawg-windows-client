@@ -15,7 +15,7 @@ import (
 
 	"github.com/amnezia-vpn/amneziawg-windows-client/l18n"
 	"github.com/amnezia-vpn/amneziawg-windows-client/manager"
-	"github.com/amnezia-vpn/amneziawg-windows/conf"
+	"github.com/amnezia-vpn/amneziawg-windows/v3/conf"
 )
 
 type widgetsLine interface {
@@ -44,16 +44,23 @@ type toggleActiveLine struct {
 }
 
 type interfaceView struct {
-	status       *labelStatusLine
-	publicKey    *labelTextLine
-	listenPort   *labelTextLine
-	mtu          *labelTextLine
-	addresses    *labelTextLine
-	dns          *labelTextLine
-	scripts      *labelTextLine
-	table        *labelTextLine
-	toggleActive *toggleActiveLine
-	lines        []widgetsLine
+	status                 *labelStatusLine
+	publicKey              *labelTextLine
+	listenPort             *labelTextLine
+	mtu                    *labelTextLine
+	addresses              *labelTextLine
+	dns                    *labelTextLine
+	scripts                *labelTextLine
+	table                  *labelTextLine
+	headerProtectionKey    *labelTextLine
+	contentPaddingAddition *labelTextLine
+	rekeyAfterTime         *labelTextLine
+	rekeyTimeout           *labelTextLine
+	rejectAfterTime        *labelTextLine
+	keepaliveTimeout       *labelTextLine
+	maxHandshakeAttempts   *labelTextLine
+	toggleActive           *toggleActiveLine
+	lines                  []widgetsLine
 }
 
 type peerView struct {
@@ -309,6 +316,13 @@ func newInterfaceView(parent walk.Container) (*interfaceView, error) {
 		{l18n.Sprintf("DNS servers:"), &iv.dns},
 		{l18n.Sprintf("Scripts:"), &iv.scripts},
 		{l18n.Sprintf("Table:"), &iv.table},
+		{l18n.Sprintf("Header protection key:"), &iv.headerProtectionKey},
+		{l18n.Sprintf("Content padding addition:"), &iv.contentPaddingAddition},
+		{l18n.Sprintf("Rekey after time:"), &iv.rekeyAfterTime},
+		{l18n.Sprintf("Rekey timeout:"), &iv.rekeyTimeout},
+		{l18n.Sprintf("Reject after time:"), &iv.rejectAfterTime},
+		{l18n.Sprintf("Keepalive timeout:"), &iv.keepaliveTimeout},
+		{l18n.Sprintf("Max handshake attempts:"), &iv.maxHandshakeAttempts},
 	}
 	if iv.lines, err = createLabelTextLines(items, parent, &disposables); err != nil {
 		return nil, err
@@ -435,6 +449,52 @@ func (iv *interfaceView) apply(c *conf.Interface) {
 	} else {
 		iv.table.hide()
 	}
+
+	if !c.HeaderProtectionKey.IsZero() {
+		if IsAdmin {
+			iv.headerProtectionKey.show(c.HeaderProtectionKey.String())
+		} else {
+			iv.headerProtectionKey.show(l18n.Sprintf("enabled"))
+		}
+	} else {
+		iv.headerProtectionKey.hide()
+	}
+
+	if len(c.ContentPaddingAddition) > 0 {
+		iv.contentPaddingAddition.show(c.ContentPaddingAddition)
+	} else {
+		iv.contentPaddingAddition.hide()
+	}
+
+	if len(c.RekeyAfterTime) > 0 {
+		iv.rekeyAfterTime.show(c.RekeyAfterTime)
+	} else {
+		iv.rekeyAfterTime.hide()
+	}
+
+	if len(c.RekeyTimeout) > 0 {
+		iv.rekeyTimeout.show(c.RekeyTimeout)
+	} else {
+		iv.rekeyTimeout.hide()
+	}
+
+	if len(c.RejectAfterTime) > 0 {
+		iv.rejectAfterTime.show(c.RejectAfterTime)
+	} else {
+		iv.rejectAfterTime.hide()
+	}
+
+	if len(c.KeepaliveTimeout) > 0 {
+		iv.keepaliveTimeout.show(c.KeepaliveTimeout)
+	} else {
+		iv.keepaliveTimeout.hide()
+	}
+
+	if len(c.MaxHandshakeAttempts) > 0 {
+		iv.maxHandshakeAttempts.show(c.MaxHandshakeAttempts)
+	} else {
+		iv.maxHandshakeAttempts.hide()
+	}
 }
 
 func (pv *peerView) widgetsLines() []widgetsLine {
@@ -470,8 +530,8 @@ func (pv *peerView) apply(c *conf.Peer) {
 		pv.endpoint.hide()
 	}
 
-	if c.PersistentKeepalive > 0 {
-		pv.persistentKeepalive.show(strconv.Itoa(int(c.PersistentKeepalive)))
+	if len(c.PersistentKeepalive) > 0 && c.PersistentKeepalive != "0" && c.PersistentKeepalive != "off" {
+		pv.persistentKeepalive.show(c.PersistentKeepalive)
 	} else {
 		pv.persistentKeepalive.hide()
 	}

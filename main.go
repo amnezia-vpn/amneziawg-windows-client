@@ -18,7 +18,7 @@ import (
 
 	"golang.org/x/sys/windows"
 
-	"github.com/amnezia-vpn/amneziawg-windows/tunnel"
+	"github.com/amnezia-vpn/amneziawg-windows/v3/tunnel"
 
 	"github.com/amnezia-vpn/amneziawg-windows-client/elevate"
 	"github.com/amnezia-vpn/amneziawg-windows-client/l18n"

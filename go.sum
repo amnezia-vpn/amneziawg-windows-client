@@ -1,7 +1,7 @@
-github.com/amnezia-vpn/amneziawg-go v0.2.18 h1:pUn7/P8qdGmHd6JmE3bCQXPblZs3vruWR98nLODQLJg=
-github.com/amnezia-vpn/amneziawg-go v0.2.18/go.mod h1:aMgOk9MuX0xI7b5TKAYp8pLM54RlXcOPzDvYw3YEO5A=
-github.com/amnezia-vpn/amneziawg-windows v0.1.9 h1:lz/aNZkkglUpBXub76TrTybnodrNxEoJwwJghFYcVhg=
-github.com/amnezia-vpn/amneziawg-windows v0.1.9/go.mod h1:BdfpKW9+fZdnGpne7h8uidaheypncIQ5vG7oerRDnaw=
+github.com/amnezia-vpn/amneziawg-go/v3 v3.0.1 h1:gzmMr0gwVoMlHy8fv3j4GX46Ha8rlMdZNhA8RGzG3QQ=
+github.com/amnezia-vpn/amneziawg-go/v3 v3.0.1/go.mod h1:YoPc6qcOZqD7TXZ1xpedD8Sx3aSKsxN05ZqEFmXDNHk=
+github.com/amnezia-vpn/amneziawg-windows/v3 v3.0.2 h1:/neYEeeBPxwYXSsL4e++kkmAd7lAWjQo3rwyRSF5Y0s=
+github.com/amnezia-vpn/amneziawg-windows/v3 v3.0.2/go.mod h1:RIMjLwBZJ97DAPzSdLudKwV/R7J0+WjjI02B79U05rU=
 github.com/google/btree v1.1.3 h1:CVpQJjYgC4VbzxeGVHfvZrv1ctoYCAI8vbl07Fcxlyg=
 github.com/google/btree v1.1.3/go.mod h1:qOPhT0dTNdNzV6Z/lhRX0YXUafgPLFUh+gZMl761Gm4=
 github.com/google/go-cmp v0.6.0 h1:ofyhxvXcZhMsU5ulbFiLKl/XBFqE1GSq7atu8tAmTRI=
