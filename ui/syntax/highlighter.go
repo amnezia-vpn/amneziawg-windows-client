@@ -56,6 +56,8 @@ const (
 	highlightRejectAfterTime
 	highlightKeepaliveTimeout
 	highlightMaxHandshakeAttempts
+	highlightRandomTrailers
+	highlightDisableCookies
 	highlightWarning
 	highlightError
 )
@@ -302,6 +304,10 @@ func (s stringSpan) isValidPersistentKeepAlive() bool {
 }
 
 // It's probably not worthwhile to try to validate a bash expression. So instead we just demand non-zero length.
+func (s stringSpan) isValidOnOff() bool {
+	return s.isSame("on") || s.isSame("off") || s.isSame("0") || s.isSame("1")
+}
+
 func (s stringSpan) isValidPrePostUpDown() bool {
 	return s.len != 0
 }
@@ -448,6 +454,8 @@ const (
 	fieldRejectAfterTime
 	fieldKeepaliveTimeout
 	fieldMaxHandshakeAttempts
+	fieldRandomTrailers
+	fieldDisableCookies
 	fieldPeerSection
 	fieldPublicKey
 	fieldPresharedKey
@@ -545,6 +553,10 @@ func (s stringSpan) field() field {
 		return fieldKeepaliveTimeout
 	case s.isCaselessSame("MaxHandshakeAttempts"):
 		return fieldMaxHandshakeAttempts
+	case s.isCaselessSame("RandomTrailers"):
+		return fieldRandomTrailers
+	case s.isCaselessSame("DisableCookies"):
+		return fieldDisableCookies
 	}
 	return fieldInvalid
 }
@@ -711,6 +723,10 @@ func (hsa *highlightSpanArray) highlightValue(parent, s stringSpan, section fiel
 		hsa.append(parent.s, s, validateHighlight(s.isValidHField(), highlightKeepaliveTimeout))
 	case fieldMaxHandshakeAttempts:
 		hsa.append(parent.s, s, validateHighlight(s.isValidHField(), highlightMaxHandshakeAttempts))
+	case fieldRandomTrailers:
+		hsa.append(parent.s, s, validateHighlight(s.isValidOnOff(), highlightRandomTrailers))
+	case fieldDisableCookies:
+		hsa.append(parent.s, s, validateHighlight(s.isValidOnOff(), highlightDisableCookies))
 	default:
 		hsa.append(parent.s, s, highlightError)
 	}

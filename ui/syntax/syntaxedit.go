@@ -133,6 +133,8 @@ var stylemap = map[highlight]spanStyle{
 	highlightRejectAfterTime:        {color: win.RGB(0x1C, 0x00, 0xCF)},
 	highlightKeepaliveTimeout:       {color: win.RGB(0x1C, 0x00, 0xCF)},
 	highlightMaxHandshakeAttempts:   {color: win.RGB(0x1C, 0x00, 0xCF)},
+	highlightRandomTrailers:         {color: win.RGB(0x64, 0x38, 0x20)},
+	highlightDisableCookies:         {color: win.RGB(0x64, 0x38, 0x20)},
 	highlightWarning:                {color: win.RGB(0xC4, 0x1A, 0x16), effects: win.CFE_UNDERLINE},
 	highlightError:                  {color: win.RGB(0xC4, 0x1A, 0x16), effects: win.CFE_UNDERLINE},
 }

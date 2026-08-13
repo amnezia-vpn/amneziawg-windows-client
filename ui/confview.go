@@ -59,6 +59,8 @@ type interfaceView struct {
 	rejectAfterTime        *labelTextLine
 	keepaliveTimeout       *labelTextLine
 	maxHandshakeAttempts   *labelTextLine
+	randomTrailers         *labelTextLine
+	disableCookies         *labelTextLine
 	toggleActive           *toggleActiveLine
 	lines                  []widgetsLine
 }
@@ -323,6 +325,8 @@ func newInterfaceView(parent walk.Container) (*interfaceView, error) {
 		{l18n.Sprintf("Reject after time:"), &iv.rejectAfterTime},
 		{l18n.Sprintf("Keepalive timeout:"), &iv.keepaliveTimeout},
 		{l18n.Sprintf("Max handshake attempts:"), &iv.maxHandshakeAttempts},
+		{l18n.Sprintf("Random trailers:"), &iv.randomTrailers},
+		{l18n.Sprintf("Disable cookies:"), &iv.disableCookies},
 	}
 	if iv.lines, err = createLabelTextLines(items, parent, &disposables); err != nil {
 		return nil, err
@@ -494,6 +498,18 @@ func (iv *interfaceView) apply(c *conf.Interface) {
 		iv.maxHandshakeAttempts.show(c.MaxHandshakeAttempts)
 	} else {
 		iv.maxHandshakeAttempts.hide()
+	}
+
+	if len(c.RandomTrailers) > 0 {
+		iv.randomTrailers.show(c.RandomTrailers)
+	} else {
+		iv.randomTrailers.hide()
+	}
+
+	if len(c.DisableCookies) > 0 {
+		iv.disableCookies.show(c.DisableCookies)
+	} else {
+		iv.disableCookies.hide()
 	}
 }
 
