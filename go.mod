@@ -12,8 +12,8 @@ require (
 )
 
 require (
-	github.com/amnezia-vpn/amneziawg-go/v3 v3.1.20260813
-	github.com/amnezia-vpn/amneziawg-windows/v3 v3.1.20260813
+	github.com/amnezia-vpn/amneziawg-go/v3 v3.1.20260814
+	github.com/amnezia-vpn/amneziawg-windows/v3 v3.1.20260814
 	golang.org/x/mod v0.28.0 // indirect
 	golang.org/x/net v0.44.0 // indirect
 	golang.org/x/sync v0.17.0 // indirect
