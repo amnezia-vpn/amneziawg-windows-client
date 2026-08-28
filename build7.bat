@@ -13,13 +13,13 @@ if exist .deps\prepared goto :render
 	rmdir /s /q .deps 2> NUL
 	mkdir .deps || goto :error
 	cd .deps || goto :error
-	call :download go-legacy-win7.zip https://github.com/thongtech/go-legacy-win7/releases/download/v1.24.4-1/go-legacy-win7-1.24.4-1.windows_amd64.zip 321a11edf2083434ba95562fb5592e3159907a25396478e5aef5b018d657ac24 || goto :error
+	call :download go-legacy-win7.zip https://github.com/thongtech/go-legacy-win7/releases/download/v1.25.14-1/go-legacy-win7-1.25.14-1.windows_amd64.zip 63d06d14dd496406bc2f3275053faeafd535e84b807b4f420cab3eab548ea73b || goto :error
 	call :download llvm-mingw-20231128-ucrt-x86_64.zip https://github.com/mstorsjo/llvm-mingw/releases/download/20231128/llvm-mingw-20231128-ucrt-x86_64.zip 7a344dafa6942de2c1f4643b3eb5c5ce5317fbab671a887e4d39f326b331798f || goto :error
 	rem Mirror of https://imagemagick.org/download/binaries/ImageMagick-7.0.8-42-portable-Q16-x64.zip
 	call :download imagemagick.zip https://download.wireguard.com/windows-toolchain/distfiles/ImageMagick-7.0.8-42-portable-Q16-x64.zip 584e069f56456ce7dde40220948ff9568ac810688c892c5dfb7f6db902aa05aa "convert.exe colors.xml delegates.xml" || goto :error
 	rem Mirror of https://sourceforge.net/projects/ezwinports/files/make-4.2.1-without-guile-w32-bin.zip
 	call :download make.zip https://download.wireguard.com/windows-toolchain/distfiles/make-4.2.1-without-guile-w32-bin.zip 30641be9602712be76212b99df7209f4f8f518ba764cf564262bc9d6e4047cc7 "--strip-components 1 bin" || goto :error
-	call :download amneziawg-tools.zip https://github.com/amnezia-vpn/amneziawg-tools/archive/v3.0.20260805.zip c835f3c42d40ba3b606b19d6d235af9b4d2b68543766dd1175b95809125ecaee "--exclude wg-quick --strip-components 1" || goto :error
+	call :download amneziawg-tools.zip https://github.com/amnezia-vpn/amneziawg-tools/archive/v3.1.20260812.zip 28c519791491d5aaa882e0c261169b8d9fbea04db8308e0937cb61758fcccfa0 "--exclude wg-quick --strip-components 1" || goto :error
 	call :download wintun.zip https://www.wintun.net/builds/wintun-0.14.1.zip 07c256185d6ee3652e09fa55c0b673e2624b565e02c4b9091c79ca7d2f24ef51 || goto :error
 	copy /y NUL prepared > NUL || goto :error
 	cd .. || goto :error
